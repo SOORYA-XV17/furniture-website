@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - FurnitureUI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #254336;
+            --secondary-color: #6B8A7A;
+            --accent-color: #DAD3BE;
+            --light-accent-color: #f0efe9; /* Lighter beige for backgrounds */
+            --text-color: #333;
+            --light-text-color: #555;
+            --border-color: #e0e0e0; /* Softer border */
+            --light-bg: #f8f9fa; /* Main page background */
+            --white-bg: #ffffff;
+            --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --success-color: #28a745; /* Added for GPay success */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content-wrap {
+            flex: 1;
+            padding-top: 2rem; /* Space below sticky navbar */
+            padding-bottom: 3rem;
+        }
+
+        /* Standard Navbar (Green/White) */
+        .site-navbar {
+            background-color: var(--primary-color);
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .site-navbar .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 1.75rem;
+            padding-top: 0; /* Adjust for logo image */
+            padding-bottom: 0; /* Adjust for logo image */
+            display: flex;
+            align-items: center;
+        }
+        .site-navbar .navbar-brand img {
+            height: 50px; /* Adjust as needed */
+            width: auto;
+            /* Add margin-right if you plan to have text next to logo, otherwise not needed */
+        }
+        .site-navbar .navbar-brand:hover { color: #f0f0f0; }
+        .site-navbar .nav-link {
+            color: white !important;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+        }
+        .site-navbar .nav-link:hover, .site-navbar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        .site-navbar .navbar-toggler { border-color: rgba(255, 255, 255, 0.5); }
+        .site-navbar .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .site-navbar .cart-link-header .badge {
+            background-color: var(--accent-color) !important;
+            color: var(--primary-color) !important;
+            font-weight: bold;
+            font-size: 0.75em;
+            padding: 0.3em 0.5em;
+        }
+
+        /* Checkout Page Specific Styles */
+        .checkout-header-block {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .checkout-header-block h1 {
+            color: var(--primary-color);
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+         .checkout-header-block p {
+            color: var(--light-text-color);
+            font-size: 1.1rem;
+        }
+
+        .payment-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .payment-methods-sidebar {
+            flex: 0 0 280px; /* Fixed width for payment methods list */
+            background-color: var(--white-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            align-self: flex-start; /* Align to top */
+        }
+        .payment-methods-sidebar .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 1.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            border-radius: 0; /* Flat style */
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .payment-methods-sidebar .nav-link i {
+            margin-right: 12px;
+            width: 20px; /* Icon alignment */
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+        .payment-methods-sidebar .nav-link:hover {
+            background-color: var(--light-accent-color);
+            color: var(--primary-color);
+            border-left-color: var(--secondary-color);
+        }
+        .payment-methods-sidebar .nav-link.active {
+            background-color: var(--light-accent-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            border-left-color: var(--primary-color);
+        }
+        .payment-methods-sidebar .nav-link.active i {
+            color: var(--primary-color);
+        }
+
+        .payment-details-main {
+            flex: 1; /* Takes remaining space */
+            min-width: 300px; /* Ensure it doesn't get too squished */
+        }
+        .payment-option-content {
+            background-color: var(--white-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        .payment-option-content h5 {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(107, 138, 122, 0.2);
+        }
+        .input-group-text {
+            background-color: #e9ecef;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-icons img {
+            height: 24px;
+            margin-right: 8px;
+        }
+        .secure-payment-info {
+            font-size: 0.85rem;
+            color: var(--light-text-color);
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .secure-payment-info i {
+            color: var(--success-color);
+            margin-right: 5px;
+        }
+
+        .order-summary-checkout {
+            flex: 0 0 320px; /* Fixed width for summary */
+            background-color: var(--white-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            padding: 1.5rem;
+            align-self: flex-start; /* Align to top */
+        }
+        .order-summary-checkout h4 {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .order-summary-checkout .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+        .order-summary-checkout .summary-item .label { color: var(--light-text-color); }
+        .order-summary-checkout .summary-item .value { font-weight: 500; }
+        .order-summary-checkout .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--primary-color);
+        }
+        .btn-pay-now {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-pay-now:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn-pay-now i { margin-left: 8px; }
+
+        /* GPay QR Modal Styles - REDESIGNED */
+        .gpay-qr-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.45); /* Slightly lighter overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1060;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0s 0.25s linear;
+        }
+        .gpay-qr-modal.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.25s ease;
+        }
+        .gpay-qr-modal-content {
+            background-color: var(--white-bg);
+            padding: 20px 24px 24px 24px; /* Adjusted padding */
+            border-radius: 16px; /* More rounded corners */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            width: 360px; /* Slightly narrower */
+            max-width: calc(100% - 32px); /* Ensure padding from screen edges */
+            text-align: center;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Roboto', 'Poppins', sans-serif;
+        }
+        .gpay-qr-modal.show .gpay-qr-modal-content {
+            transform: translateY(0) scale(1);
+        }
+        .gpay-qr-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px; 
+            border-bottom: none; 
+        }
+        .gpay-recipient-info {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+        .gpay-avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px; /* Slightly smaller avatar */
+            height: 36px;
+            border-radius: 50%;
+            background-color: #673AB7; /* GPay purple */
+            color: white;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+        .gpay-recipient-name {
+            font-size: 1.15rem; 
+            font-weight: 500; /* Medium weight */
+            color: #202124; /* GPay dark grey */
+        }
+        .gpay-qr-modal-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.7rem;
+            color: #5f6368; /* GPay grey for icons */
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+        }
+        .gpay-qr-modal-close-btn:hover {
+            color: #202124;
+        }
+        .gpay-qr-image-container {
+            margin: 12px 0 12px 0;
+            padding: 0;
+            background-color: var(--white-bg);
+            border-radius: 8px;
+            display: inline-block;
+            position: relative; 
+        }
+        .gpay-qr-image-container img {
+            width: 190px; 
+            height: 190px;
+            display: block;
+            margin: 0 auto;
+            border: none; 
+        }
+        .gpay-logo-on-qr {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px; 
+            height: auto;
+            background-color: white;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        .gpay-scan-instruction {
+            font-size: 0.875rem; 
+            color: #5f6368; /* GPay grey */
+            margin-top: 0px;
+            margin-bottom: 16px;
+        }
+        .gpay-upi-id-container {
+            background-color: #f1f3f4; /* GPay light grey background */
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 20px; 
+            text-align: left;
+            font-size: 0.875rem;
+            color: #3c4043; /* GPay text grey */
+        }
+        .gpay-upi-bank-icon i {
+            color: #1a73e8; /* GPay blue */
+            margin-right: 6px;
+            font-size: 1rem;
+        }
+         .gpay-upi-id-container span {
+            display: block; /* Stack bank name and UPI ID */
+        }
+        .gpay-upi-id-text {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #202124;
+            margin-top: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .gpay-copy-upi-btn {
+            background: none;
+            border: none;
+            color: #1a73e8; /* GPay blue */
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
+        }
+        .gpay-qr-modal-actions {
+            display: flex;
+            justify-content: space-between; 
+            gap: 12px; /* Gap between buttons */
+            margin-bottom: 20px;
+        }
+        .gpay-qr-modal-actions .btn {
+            flex: 1; /* Equal width for buttons */
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 8px; /* GPay button radius */
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .gpay-open-scanner-btn {
+            border: 1px solid #dadce0; /* GPay outline button border */
+            color: #1a73e8; /* GPay blue text */
+            background-color: white;
+        }
+        .gpay-open-scanner-btn:hover {
+            background-color: #f8f9fa; /* Light hover */
+            border-color: #c6c9cc;
+        }
+        .gpay-share-qr-btn {
+            background-color: #1a73e8; /* GPay blue */
+            color: white;
+            border: 1px solid #1a73e8;
+        }
+        .gpay-share-qr-btn:hover {
+            background-color: #1765cc; /* Darker blue on hover */
+            border-color: #1765cc;
+        }
+        .gpay-powered-by-upi {
+            font-size: 0.7rem;
+            color: #5f6368;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .gpay-powered-by-upi img.gpay-upi-logo {
+            height: 18px; 
+            width: auto;
+            margin-top: 3px;
+        }
+        .gpay-payment-success-message {
+            color: var(--success-color);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Generic Payment Success Modal */
+        .payment-success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1070; /* Higher than GPay modal */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0s 0.25s linear;
+        }
+        .payment-success-modal.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.25s ease;
+        }
+        .payment-success-modal-content {
+            background-color: var(--white-bg);
+            padding: 2.5rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 380px;
+            max-width: calc(100% - 32px);
+            text-align: center;
+            transform: translateY(20px) scale(0.98);
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .payment-success-modal.show .payment-success-modal-content {
+            transform: translateY(0) scale(1);
+        }
+        .payment-success-modal-icon {
+            font-size: 3.5rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+        }
+        .payment-success-modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        .payment-success-modal-text {
+            font-size: 1rem;
+            color: var(--light-text-color);
+            margin-bottom: 0;
+        }
+
+        /* Standard Footer */
+        .site-footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 0;
+            font-size: 0.9rem;
+        }
+        .site-footer p { margin-bottom: 0.75rem; }
+        .site-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .site-footer a:hover { color: white; text-decoration: underline; }
+
+        /* Responsive adjustments */
+        @media (max-width: 991.98px) { /* Medium devices (tablets, less than 992px) */
+            .payment-container {
+                flex-direction: column-reverse; /* Stack order summary on top on mobile */
+            }
+            .payment-methods-sidebar, .order-summary-checkout {
+                flex: 0 0 100%; /* Full width */
+                margin-bottom: 1.5rem;
+            }
+            .payment-methods-sidebar .nav-link { font-size: 1rem; }
+        }
+         @media (max-width: 767.98px) { /* Small devices (landscape phones, less than 768px) */
+            .checkout-header-block h1 { font-size: 1.8rem; }
+            .payment-option-content { padding: 1.5rem; }
+            .gpay-qr-modal-content { padding: 1.5rem; }
+            .gpay-qr-modal-header h5 { font-size: 1.1rem; }
+            .gpay-qr-image-container img { width: 150px; height: 150px; }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Standardized Navigation -->
+    <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="EVO_SPACE__7_-removebg-preview.png" alt="EVO_SPACE Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavContent" aria-controls="navbarNavContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogue-fixed.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-link-header" href="cart-page.html" id="cartButtonHeader">
+                            <i class="fas fa-shopping-cart"></i> Cart 
+                            <span class="badge cart-count ms-1">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrap container">
+        <div class="checkout-header-block">
+            <h1>Complete Your Purchase</h1>
+            <p>Securely enter your payment details below.</p>
+    </div>
+
+        <div class="payment-container">
+            <!-- Payment Methods Sidebar -->
+            <aside class="payment-methods-sidebar">
+                <ul class="nav nav-pills flex-column" id="paymentMethodsTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="upi-tab" data-bs-toggle="pill" data-bs-target="#upi-content" type="button" role="tab" aria-controls="upi-content" aria-selected="true">
+                            <i class="fa-brands fa-google-pay"></i> UPI
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cards-tab" data-bs-toggle="pill" data-bs-target="#cards-content" type="button" role="tab" aria-controls="cards-content" aria-selected="false">
+                            <i class="fas fa-credit-card"></i> Credit/Debit Cards
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="netbanking-tab" data-bs-toggle="pill" data-bs-target="#netbanking-content" type="button" role="tab" aria-controls="netbanking-content" aria-selected="false">
+                            <i class="fas fa-landmark"></i> Netbanking
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="wallets-tab" data-bs-toggle="pill" data-bs-target="#wallets-content" type="button" role="tab" aria-controls="wallets-content" aria-selected="false">
+                            <i class="fas fa-wallet"></i> Wallets
+                        </button>
+                    </li>
+                    <!-- <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cod-tab" data-bs-toggle="pill" data-bs-target="#cod-content" type="button" role="tab" aria-controls="cod-content" aria-selected="false">
+                            <i class="fas fa-hand-holding-dollar"></i> Cash on Delivery
+                        </button>
+                    </li> -->
+                </ul>
+            </aside>
+
+            <!-- Payment Details Main Area -->
+            <main class="payment-details-main">
+                <div class="tab-content" id="paymentMethodsContent">
+                    <!-- UPI Content -->
+                    <div class="tab-pane fade show active payment-option-content" id="upi-content" role="tabpanel" aria-labelledby="upi-tab">
+                        <h5>Pay with UPI</h5>
+                        <form id="upiForm">
+                            <div class="mb-3">
+                                <label for="upi_vpa" class="form-label">Enter UPI ID (VPA)</label>
+                                <input type="text" class="form-control" id="upi_vpa" placeholder="yourname@bank" required>
+            </div>
+                            <button type="submit" class="btn btn-pay-now w-100">Pay Securely <i class="fas fa-arrow-right"></i></button>
+                            <p class="text-center my-3 text-muted">OR</p>
+                            <button type="button" class="btn btn-outline-success w-100" id="gpayModalButton"><i class="fa-brands fa-google-pay me-2"></i>Pay with Google Pay</button>
+                            <!-- Add more UPI app buttons if needed -->
+                             <p class="secure-payment-info mt-3"><i class="fas fa-shield-alt"></i> Your payment is secured with 128-bit encryption.</p>
+                        </form>
+            </div>
+
+                    <!-- Cards Content -->
+                    <div class="tab-pane fade payment-option-content" id="cards-content" role="tabpanel" aria-labelledby="cards-tab">
+                        <h5>Credit/Debit Card</h5>
+                        <form id="cardForm">
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Card Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
+                                    <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col-md-7 mb-3">
+                                    <label for="cardExpiry" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="cardExpiry" placeholder="MM/YY" required>
+                            </div>
+                                <div class="col-md-5 mb-3">
+                                    <label for="cardCvv" class="form-label">CVV</label>
+                                    <div class="input-group">
+                                      <input type="password" class="form-control" id="cardCvv" placeholder="CVV" required>
+                                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                        </div>
+                        </div>
+                            <div class="mb-3">
+                                <label for="cardName" class="form-label">Name on Card</label>
+                                <input type="text" class="form-control" id="cardName" placeholder="Enter name as on card" required>
+                        </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="saveCardCheck">
+                                <label class="form-check-label" for="saveCardCheck" style="font-size:0.9rem; font-weight:normal;">
+                                    Save this card for future payments
+                                </label>
+                        </div>
+                             <div class="mb-3 card-icons">
+                                <img src="https://js.stripe.com/v3/fingerprinted/img/visa-729c05c240c4d33657f8d64e57e2a353.svg" alt="Visa">
+                                <img src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d88040688aaa32c0007609743748b1b.svg" alt="Mastercard">
+                                <img src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a9e410c36bac690.svg" alt="Amex">
+                                <!-- Add other card icons -->
+                            </div>
+                            <button type="submit" class="btn btn-pay-now w-100">Pay Securely <i class="fas fa-arrow-right"></i></button>
+                             <p class="secure-payment-info mt-3"><i class="fas fa-shield-alt"></i> Your payment is secured with 128-bit encryption.</p>
+                        </form>
+                            </div>
+
+                    <!-- Netbanking Content -->
+                    <div class="tab-pane fade payment-option-content" id="netbanking-content" role="tabpanel" aria-labelledby="netbanking-tab">
+                        <h5>Netbanking</h5>
+                        <form id="netbankingForm">
+                            <div class="mb-3">
+                                <label for="bankSelect" class="form-label">Select Your Bank</label>
+                                <select class="form-select form-control" id="bankSelect" required>
+                                    <option selected disabled value="">Choose bank...</option>
+                                    <option value="sbi">State Bank of India</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                    <option value="axis">Axis Bank</option>
+                                    <option value="kotak">Kotak Mahindra Bank</option>
+                                    {/* <!-- Add more banks --> */}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-pay-now w-100">Proceed to Bank <i class="fas fa-arrow-right"></i></button>
+                             <p class="secure-payment-info mt-3"><i class="fas fa-shield-alt"></i> You will be redirected to your bank\'s secure login page.</p>
+                        </form>
+                    </div>
+                    
+                    <!-- Wallets Content -->
+                    <div class="tab-pane fade payment-option-content" id="wallets-content" role="tabpanel" aria-labelledby="wallets-tab">
+                        <h5>Pay with Wallets</h5>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <span><i class="fa-solid fa-motorcycle me-2 text-primary"></i> Paytm</span> <i class="fas fa-chevron-right"></i>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <span><i class="fa-solid fa-mobile-screen-button me-2 text-success"></i> PhonePe</span> <i class="fas fa-chevron-right"></i>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <span><i class="fa-brands fa-amazon-pay me-2 text-warning"></i> Amazon Pay</span> <i class="fas fa-chevron-right"></i>
+                            </a>
+                           
+                                </div>
+                         <p class="secure-payment-info mt-3"><i class="fas fa-shield-alt"></i> Securely pay using your preferred wallet.</p>
+                            </div>
+                                </div>
+            </main>
+
+            <!-- Order Summary -->
+            <aside class="order-summary-checkout" id="orderSummaryCheckout">
+                <h4>Order Summary</h4>
+                <div id="checkoutOrderItems">
+                    <!-- Items will be populated by JS -->
+                    <p class="text-muted">Loading your cart...</p>
+                    </div>
+                <hr class="my-3">
+                <div class="summary-item">
+                    <span class="label">Subtotal:</span>
+                    <span class="value" id="checkoutSubtotal">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Shipping:</span>
+                    <span class="value" id="checkoutShipping">$0.00</span>
+            </div>
+                <div class="summary-item">
+                    <span class="label">Tax (Est.):</span>
+                    <span class="value" id="checkoutTax">$0.00</span>
+                    </div>
+                <div class="summary-total">
+                    <span class="label">Total Payable:</span>
+                    <span class="value" id="checkoutTotal">$0.00</span>
+                </div>
+                <button type="button" class="btn btn-pay-now" id="finalPayButton" style="display:none;">Pay Now <i class="fas fa-shield-alt"></i></button>
+                 <div class="mt-3">
+                    <small class="text-muted d-block text-center">By placing your order, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</small>
+            </div>
+            </aside>
+        </div>
+    </div>
+    
+    <!-- Standardized Footer -->
+    <footer class="site-footer text-center">
+        <div class="container">
+            <p>&copy; 2024 FurnitureUI. All Rights Reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="contact.html">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="cart.js"></script> 
+    <script>
+        // Basic JS for checkout page:
+        // 1. Populate order summary
+        // 2. Handle payment method tab switching
+        // 3. Form validation (basic)
+        // 4. "Pay Now" button logic (mock for now)
+        // 5. GPay QR Modal logic
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ensure cart.js is loaded and cartSystem is available
+            if (!window.cartSystem || typeof window.cartSystem.getCart !== 'function') {
+                console.error("Cart system not found. Ensure cart.js is loaded before checkout.js and cartSystem is exposed.");
+            }
+            
+            const cart = window.cartSystem ? window.cartSystem.getCart() : [];
+            const SHIPPING_FEE = 9.99; 
+            const TAX_RATE = 0.0825;
+
+            const orderItemsContainer = document.getElementById('checkoutOrderItems');
+            const subtotalEl = document.getElementById('checkoutSubtotal');
+            const shippingEl = document.getElementById('checkoutShipping');
+            const taxEl = document.getElementById('checkoutTax');
+            const totalEl = document.getElementById('checkoutTotal');
+            const finalPayButton = document.getElementById('finalPayButton'); 
+            const gpayModalButton = document.getElementById('gpayModalButton');
+
+            function populateOrderSummary() {
+                if (!orderItemsContainer || !subtotalEl || !shippingEl || !taxEl || !totalEl) {
+                    console.error('One or more order summary elements not found.');
+                    return;
+                }
+                
+                if (cart.length === 0) {
+                    orderItemsContainer.innerHTML = '<p class="text-muted">Your cart is empty. <a href="catalogue-fixed.html">Continue shopping</a>.</p>';
+                    subtotalEl.textContent = '$0.00';
+                    shippingEl.textContent = '$0.00';
+                    taxEl.textContent = '$0.00';
+                    totalEl.textContent = '$0.00';
+                    if(finalPayButton) finalPayButton.disabled = true;
+                    document.querySelectorAll('.btn-pay-now, #gpayModalButton').forEach(btn => btn.disabled = true);
+                    return;
+                }
+
+                let itemsHTML = '<ul class="list-unstyled">';
+                let currentSubtotal = 0;
+
+                cart.forEach(item => {
+                    const price = parseFloat(item.price);
+                    const quantity = parseInt(item.quantity, 10);
+                    if (!isNaN(price) && !isNaN(quantity)) {
+                        const itemTotal = price * quantity;
+                        currentSubtotal += itemTotal;
+                        itemsHTML += `
+                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 10px;">
+                                    <div>
+                                        <small class="fw-medium d-block">${item.name}</small>
+                                        <small class="text-muted">Qty: ${quantity}</small>
+                                    </div>
+                                </div>
+                                <small class="fw-medium">$ ${itemTotal.toFixed(2)}</small>
+                            </li>
+                        `;
+                    }
+                });
+                itemsHTML += '</ul>';
+                orderItemsContainer.innerHTML = itemsHTML;
+
+                const currentShipping = currentSubtotal > 100 || currentSubtotal === 0 ? 0 : SHIPPING_FEE;
+                const currentTax = currentSubtotal * TAX_RATE;
+                const currentTotal = currentSubtotal + currentShipping + currentTax;
+
+                subtotalEl.textContent = `$${currentSubtotal.toFixed(2)}`;
+                shippingEl.textContent = currentShipping === 0 ? 'FREE' : `$${currentShipping.toFixed(2)}`;
+                taxEl.textContent = `$${currentTax.toFixed(2)}`;
+                totalEl.textContent = `$${currentTotal.toFixed(2)}`;
+                
+                if(finalPayButton) {
+                    finalPayButton.disabled = false;
+                    finalPayButton.textContent = `Pay $ ${currentTotal.toFixed(2)}`;
+                }
+                 document.querySelectorAll('.btn-pay-now, #gpayModalButton').forEach(btn => {
+                    btn.disabled = false;
+                    if(btn.id !== 'gpayModalButton' && btn.parentElement.id !== 'orderSummaryCheckout'){
+                       btn.innerHTML = `Pay Securely <i class="fas fa-arrow-right"></i>`;
+                    }
+                });
+            }
+            
+            if (window.cartSystem && typeof window.cartSystem.updateCartCount === 'function') {
+                 window.cartSystem.updateCartCount();
+            }
+
+            populateOrderSummary();
+
+            const paymentForms = document.querySelectorAll('#upiForm, #cardForm, #netbankingForm');
+            paymentForms.forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    let isValid = true;
+                    form.querySelectorAll('[required]').forEach(input => {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            input.classList.add('is-invalid');
+                        } else {
+                            input.classList.remove('is-invalid');
+                        }
+                    });
+
+                    if (isValid) {
+                        console.log(`Processing ${form.id} payment...`);
+                        if (window.cartSystem && typeof window.cartSystem.getCart === 'function' && window.cartSystem.getCart().length > 0) {
+                             localStorage.removeItem('cart');
+                             window.cartSystem.updateCartCount(); 
+                             populateOrderSummary();
+                        }
+                        showGenericPaymentSuccessModal();
+                    } else {
+                        alert('Please fill in all required fields for the selected payment method.');
+                    }
+                });
+            });
+
+            const paymentMethodTabs = document.querySelectorAll('#paymentMethodsTabs .nav-link');
+            paymentMethodTabs.forEach(tab => {
+                tab.addEventListener('shown.bs.tab', function (event) {
+                    if(finalPayButton) finalPayButton.style.display = 'none';
+                });
+            });
+            if(finalPayButton) finalPayButton.style.display = 'none';
+
+            // GPay QR Modal Logic
+            function showGPayQRModal() {
+                const existingModal = document.getElementById('gpay-qr-code-modal');
+                if (existingModal) existingModal.remove();
+
+                const modal = document.createElement('div');
+                modal.id = 'gpay-qr-code-modal';
+                modal.className = 'gpay-qr-modal';
+                // Updated innerHTML for the modal to match the provided GPay image
+                modal.innerHTML = `
+                    <div class="gpay-qr-modal-content">
+                        <div class="gpay-qr-modal-header">
+                            <div class="gpay-recipient-info">
+                                <span class="gpay-avatar">S</span> 
+                                <span class="gpay-recipient-name">Soorya</span>
+                            </div>
+                            <button type="button" class="gpay-qr-modal-close-btn">&times;</button>
+                        </div>
+                        <div class="gpay-qr-image-container">
+                            <img src="upi.png" alt="Scan QR Code for Soorya innovates@oksbi">
+                        </div>
+                        <p class="gpay-scan-instruction">Scan to pay with any UPI app</p>
+                        <div class="gpay-upi-id-container">
+                            <span class="gpay-upi-bank-icon"><i class="fas fa-university"></i></span> State Bank of India 3201
+                            <div class="gpay-upi-id-text">UPI ID: sooryainnovates@oksbi <button class="gpay-copy-upi-btn"><i class="far fa-copy"></i></button></div>
+                        </div>
+                        <div class="gpay-qr-modal-actions">
+                            <button type="button" class="btn btn-outline-primary gpay-open-scanner-btn"><i class="fas fa-qrcode me-2"></i>Open scanner</button>
+                            <button type="button" class="btn btn-primary gpay-share-qr-btn"><i class="fas fa-share-alt me-2"></i>Share QR code</button>
+                        </div>
+                        <div class="gpay-powered-by-upi">
+                            POWERED BY
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/2560px-UPI-Logo-vector.svg.png" alt="UPI Logo" class="gpay-upi-logo">
+                        </div>
+                         <p class="gpay-payment-success-message" style="display:none;"><i class="fas fa-check-circle"></i> Payment Confirmed!</p>
+                         <button type="button" class="btn btn-success gpay-qr-modal-paid-btn mt-3" style="display:none;">Pay</button> 
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                const closeBtn = modal.querySelector('.gpay-qr-modal-close-btn');
+                const paidBtn = modal.querySelector('.gpay-qr-modal-paid-btn'); // Kept for mock flow
+                const successMsg = modal.querySelector('.gpay-payment-success-message');
+                const gpayOpenScannerBtn = modal.querySelector('.gpay-open-scanner-btn');
+                const gpayShareQRBtn = modal.querySelector('.gpay-share-qr-btn');
+                const gpayCopyUpiBtn = modal.querySelector('.gpay-copy-upi-btn');
+
+                // Simulate showing the payment buttons after a delay, as if QR is primary action
+                    setTimeout(() => {
+                    if(paidBtn) paidBtn.style.display = 'block';
+                }, 3000); // Show mock paid button after 3 seconds
+
+                function closeModal() {
+                    modal.classList.remove('show');
+                    setTimeout(() => modal.remove(), 300);
+                }
+
+                if(closeBtn) closeBtn.addEventListener('click', closeModal);
+                
+                if(gpayOpenScannerBtn) {
+                    gpayOpenScannerBtn.addEventListener('click', () => {
+                        alert('Mock: Open scanner functionality would be here.');
+                    });
+                }
+                if(gpayShareQRBtn) {
+                    gpayShareQRBtn.addEventListener('click', () => {
+                        alert('Mock: Share QR code functionality would be here.');
+                    });
+                }
+                if(gpayCopyUpiBtn) {
+                    gpayCopyUpiBtn.addEventListener('click', () => {
+                        navigator.clipboard.writeText('sooryainnovates@oksbi').then(() => {
+                            alert('UPI ID copied to clipboard!');
+                        }).catch(err => {
+                            console.error('Failed to copy UPI ID: ', err);
+                            alert('Failed to copy UPI ID.');
+            });
+        });
+                }
+
+                if(paidBtn) {
+                    paidBtn.addEventListener('click', () => {
+                        modal.querySelector('.gpay-qr-image-container').style.display = 'none';
+                        modal.querySelector('.gpay-scan-instruction').style.display = 'none';
+                        modal.querySelector('.gpay-upi-id-container').style.display = 'none';
+                        modal.querySelector('.gpay-qr-modal-actions').style.display = 'none';
+                        modal.querySelector('.gpay-powered-by-upi').style.display = 'none';
+                        if(paidBtn) paidBtn.style.display = 'none';
+                        successMsg.style.display = 'block';
+                        if (window.cartSystem && typeof window.cartSystem.getCart === 'function' && window.cartSystem.getCart().length > 0) {
+                            localStorage.removeItem('cart');
+                            window.cartSystem.updateCartCount(); 
+                            populateOrderSummary();
+                        }
+                        setTimeout(closeModal, 2500);
+                    });
+                }
+
+                requestAnimationFrame(() => {
+                    setTimeout(() => modal.classList.add('show'), 10);
+                });
+            }
+
+            if (gpayModalButton) {
+                gpayModalButton.addEventListener('click', showGPayQRModal);
+            } else {
+                 console.warn("gpayModalButton not found.")
+            }
+
+            // Generic Payment Success Modal Function
+            function showGenericPaymentSuccessModal() {
+                const existingModal = document.getElementById('generic-payment-success-modal');
+                if (existingModal) existingModal.remove();
+
+                const modal = document.createElement('div');
+                modal.id = 'generic-payment-success-modal';
+                modal.className = 'payment-success-modal';
+                modal.innerHTML = `
+                    <div class="payment-success-modal-content">
+                        <div class="payment-success-modal-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h5 class="payment-success-modal-title">Payment Successful!</h5>
+                        <p class="payment-success-modal-text">Thank you for your order. You will be redirected shortly.</p>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                requestAnimationFrame(() => {
+                    setTimeout(() => modal.classList.add('show'), 10);
+                });
+
+            setTimeout(() => {
+                    modal.classList.remove('show');
+            setTimeout(() => {
+                        modal.remove();
+                        window.location.href = 'catalogue-fixed.html';
+                    }, 300); // Allow fade out
+                }, 2500); // Show modal for 2.5 seconds
+            }
+        });
+    </script>
+</body>
+</html> 

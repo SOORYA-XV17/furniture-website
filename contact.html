@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - EVO_SPACE</title>
+    <!-- Bootstrap CSS (v5.1.3) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Cart Styles (if cart button is present and needs specific styles) -->
+    <!-- <link rel="stylesheet" href="cart-styles.css"> -->
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex; /* For sticky footer */
+            flex-direction: column; /* For sticky footer */
+            min-height: 100vh; /* For sticky footer */
+        }
+        .content-wrap { /* For sticky footer */
+            flex: 1;
+        }
+
+        /* Standard Navbar (Green/White) */
+        .site-navbar {
+            background-color: #254336; /* Main green color */
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .site-navbar .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 1.75rem;
+            padding-top: 0; /* Adjust for logo image */
+            padding-bottom: 0; /* Adjust for logo image */
+            display: flex;
+            align-items: center;
+        }
+        .site-navbar .navbar-brand img {
+            height: 50px; /* Adjusted logo height */
+            width: auto;
+        }
+        .site-navbar .navbar-brand:hover { color: #f0f0f0; }
+        .site-navbar .nav-link {
+            color: white !important;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+        }
+        .site-navbar .nav-link:hover, 
+        .site-navbar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        .site-navbar .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .site-navbar .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .site-navbar .cart-link-header .badge {
+            background-color: #DAD3BE !important;
+            color: #254336 !important;
+            font-weight: bold;
+            font-size: 0.75em;
+            padding: 0.3em 0.5em;
+        }
+        
+        /* Contact Styles */
+        .contact-section {
+            padding: 80px 0;
+        }
+        
+        .contact-heading {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .contact-heading h1 {
+            font-weight: 600;
+            color: #254336;
+            margin-bottom: 15px;
+        }
+        
+        .contact-heading p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .contact-form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control {
+            border: 1px solid #e5e5e5;
+            padding: 12px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #254336;
+            box-shadow: 0 0 0 0.2rem rgba(37, 67, 54, 0.15);
+        }
+        
+        .btn-submit {
+            background-color: #254336;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: #1a332a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info {
+            background-color: #254336;
+            color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            height: 100%;
+        }
+        
+        .contact-info h2 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info-item i {
+            font-size: 22px;
+            margin-right: 15px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .contact-info-item .details {
+            flex: 1;
+        }
+        
+        .contact-info-item .details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .contact-info-item .details p {
+            margin: 0;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+        
+        .social-links {
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Map Section */
+        .map-section {
+            height: 400px;
+            margin-top: 60px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .map-section iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 991px) {
+            .contact-info {
+                margin-top: 30px;
+            }
+        }
+
+        /* Standard Footer */
+        .site-footer {
+            background-color: #254336; /* Dark Green */
+            color: white;
+            padding: 2.5rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .site-footer p {
+            margin-bottom: 0.75rem;
+        }
+        .site-footer a {
+            color: #DAD3BE; /* Accent beige for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .site-footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Standardized Navigation -->
+    <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="EVO_SPACE__7_-removebg-preview.png" alt="EVO_SPACE Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavContent" aria-controls="navbarNavContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogue-fixed.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-link-header" href="cart-page.html" id="cartButtonHeader">
+                            <i class="fas fa-shopping-cart"></i> Cart 
+                            <span class="badge cart-count ms-1">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrap">
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-heading">
+                    <h1>Contact Us</h1>
+                    <p>We'd love to hear from you! Please fill out the form below and our team will get back to you as soon as possible.</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="contact-form">
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="firstName">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <select class="form-control" id="subject" required>
+                                        <option value="" selected disabled>Select a subject</option>
+                                        <option value="Product Inquiry">Product Inquiry</option>
+                                        <option value="Order Status">Order Status</option>
+                                        <option value="Return & Refund">Return & Refund</option>
+                                        <option value="Shipping Question">Shipping Question</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-submit">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-5">
+                        <div class="contact-info">
+                            <h2>Get In Touch</h2>
+                            
+                            <div class="contact-info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="details">
+                                    <h3>Our Location</h3>
+                                    <p>123 Furniture Avenue, Design District<br>New York, NY 10001</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <div class="details">
+                                    <h3>Phone Number</h3>
+                                    <p>+1 (555) 123-4567</p>
+                                    <p>Monday to Friday, 9am to 6pm</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <div class="details">
+                                    <h3>Email Address</h3>
+                                    <p>support@furnitureui.com</p>
+                                    <p>sales@furnitureui.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map Section -->
+                <div class="map-section">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086050204937!2d-122.41941548468167!3d37.77492917975817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807e0e2f7f9b%3A0x1a3b2c8e5f8d4b0c!2sSan%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2sin!4v1609827724984!5m2!1sen!2sin" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+            </div>
+        </section>
+    </div> <!-- End content-wrap -->
+
+    <!-- Standardized Footer -->
+    <footer class="site-footer text-center">
+        <div class="container">
+            <p>&copy; 2024 EVO_SPACE. All Rights Reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="contact.html">Contact Us</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper (Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Cart Script (for updating cart count in header) -->
+    <script src="cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count on page load
+            if (window.cartSystem && typeof window.cartSystem.updateCartCount === 'function') {
+                window.cartSystem.updateCartCount();
+            }
+
+            // Optional: Contact form submission handling (if you want to keep it in this file)
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Basic validation example
+                    let isValid = true;
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+
+                    if (!name || !email || !message) {
+                        isValid = false;
+                        alert('Please fill out all fields.');
+                    }
+                    if (isValid) {
+                        alert('Thank you for your message! We will get back to you soon.');
+                        contactForm.reset();
+                        // Here you would typically send the data to a server
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+  /* Variables */
+:root {
+    --transition-duration: 0.8s;
+    --transition-easing: cubic-bezier(0.230, 1.000, 0.320, 1.000);
+    --bounce-easing: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    --closed-width: 200px;
+    --closed-height: 60px; /* Reduced height */
+    --opened-width: 400px;
+    --opened-height: 120px; /* Reduced height */
+    --font-size: 14px; /* Reduced font size */
+    --size: 30px; /* Input size */
+    --open-width: 250px; /* Width when focused */
+    --open-padding: 8px; /* Reduced padding */
+    --frame-thickness: 2px; /* Thickness of the frame */
+    --frame-color: #254336; /* Color of the frame */
+    --handle-height: 12px; /* Height of the button */
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s;
+}
+
+header {
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width */
+}
+
+.navbar {
+    background-color: #254336;
+}
+
+.jumbotron {
+    padding: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.nav-link {
+    color: #254336;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    text-decoration: none;
+    color: #6B8A7A;
+}
+
+.card {
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #254336;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.border-top {
+    border-top: 1px solid #eaeaea;
+}
+
+.price-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 0.3rem 0.6rem; /* Reduced padding */
+    border-radius: 4px; /* Slightly reduced border radius */
+    font-size: 12px; /* Reduced font size */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-light {
+    background-color: #B7B597;
+    border: 1px solid #DAD3BE;
+}
+
+.btn-light:hover {
+    background-color: #DAD3BE;
+    transform: scale(1.05);
+}
+
+.btn-success {
+    background-color: #254336;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #6B8A7A;
+    transform: scale(1.05);
+}
+
+.recommended-item {
+    padding: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recommended-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.recommended-item img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.recommended-item img:hover {
+    transform: scale(1.1);
+}
+
+.footer {
+    background-color: #254336;
+    color: #ffffff;
+    padding: 1.5rem 0;
+    width: 100%; /* Full width */
+}
+
+.footer h5 {
+    margin-top: 0;
+}
+
+.footer a {
+    color: #ffffff;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-lg-9,
+.col-lg-3 {
+    padding: 1rem; /* Add padding for better spacing */
+}
+
+@media (max-width: 768px) {
+    .col-lg-9,
+    .col-lg-3 {
+        flex: 0 0 100%; /* Full width on small screens */
+        max-width: 100%;
+    }
+}
+
+/* Search Box Integration */
+.search-box {
+    display: inline-block;
+    margin-right: 1rem; /* Add spacing between search and nav items */
+}
+
+/* Fade In/Out Animations */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Scroll to Top Button */
+#scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #6B8A7A;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#scroll-to-top:hover {
+    background-color: #254336;
+    transform: scale(1.1);
+}
+
+/* Button Styles */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    user-select: none;
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    background-color: #f5f5f5;
+}
+
+.description {
+    margin-top: 50px;
+    text-align: center;
+    color: #999;
+    transition: opacity 0.3s ease;
+}
+
+.description a {
+    color: #4A9DF6;
+    text-decoration: none;
+}
+
+.btn.is-open ~ .description {
+    opacity: 0;
+}
+
+.btn {
+    display: block;
+    position: relative;
+    width: var(--closed-width);
+    height: var(--closed-height);
+    transition: width var(--transition-duration) var(--transition-easing),
+                height var(--transition-duration) var(--transition-easing),
+                transform var(--transition-duration) var(--bounce-easing);
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    text-align: center;
+}
+
+.btn-front {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: var(--closed-height);
+    background-color: #F44336;
+    color: #fff;
+    cursor: pointer;
+    backface-visibility: hidden;
+    transition: background 0.15s ease,
+                line-height var(--transition-duration) var(--transition-easing);
+}
+
+.btn-front:hover {
+    background-color: lighten(#F44336, 10%);
+}
+
+.btn.is-open .btn-front {
+    pointer-events: none;
+    line-height: var(--opened-height);
+}
+
+.btn-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    color: #222;
+    transform: translateZ(-2px) rotateX(180deg);
+    overflow: hidden;
+    transition: box-shadow var(--transition-duration) ease;
+}
+
+.btn-back p {
+    margin-top: 27px;
+    margin-bottom: 25px;
+}
+
+.btn-back button {
+    padding: 8px 12px; /* Reduced padding */
+    width: 30%;
+    margin: 0 5px;
+    background-color: transparent;
+    border: 0;
+    border-radius: 2px;
+    font-size: 0.9em; /* Reduced font size */
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn-back button:focus {
+    outline: 0;
+}
+
+.btn-back button.yes {
+    background-color: #2196F3;
+    color: #fff;
+}
+
+.btn-back button.yes:hover {
+    background-color: lighten(#2196F3, 10%);
+}
+
+.btn-back button.no {
+    color: #2196F3;
+}
+
+.btn-back button.no:hover {
+    background-color: #ddd;
+}
+
+.btn.is-open .btn-back {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.btn[data-direction="left"] .btn-back,
+.btn[data-direction="right"] .btn-back {
+    transform: translateZ(-2px) rotateY(180deg);
+}
+
+.btn.is-open {
+    width: var(--opened-width);
+    height: var(--opened-height);
+}
+
+.btn[data-direction="top"].is-open {
+    transform: rotateX(180deg);
+}
+
+.btn[data-direction="right"].is-open {
+    transform: rotateY(180deg);
+}
+
+.btn[data-direction="bottom"].is-open {
+    transform: rotateX(-180deg);
+}
+
+.btn[data-direction="left"].is-open {
+    transform: rotateY(-180deg);
+}
+
+/* Search Box Styles */
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+html, body {
+    font-family: Raleway, sans-serif;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+/* SEARCH BOX */
+.search-box {
+    font-size: 20px; /* $font-size */
+    border: solid 0.27em #000000; /* $frame-thickness and $frame-color */
+    display: inline-block;
+    position: relative;
+    border-radius: 2.5em; /* $size */
+}
+
+.search-box input[type="text"] {
+    font-family: inherit;
+    font-weight: bold;
+    width: 2.5em; /* $size */
+    height: 2.5em; /* $size */
+    padding: 0.3em 2.1em 0.3em 0.4em; /* $open-padding */
+    border: none;
+    box-sizing: border-box;
+    border-radius: 2.5em; /* $size */
+    transition: width 800ms cubic-bezier(0.68, -0.55, 0.27, 1.55) 150ms; /* $open-trans-time and $close-trans-time */
+}
+
+.search-box input[type="text"]:focus {
+    outline: none;
+}
+
+.search-box input[type="text"]:focus,
+.search-box input[type="text"]:not(:placeholder-shown) {
+    width: 18em; /* $open-width */
+    transition: width 800ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.search-box input[type="text"]:focus + button[type="reset"],
+.search-box input[type="text"]:not(:placeholder-shown) + button[type="reset"] {
+    transform: rotate(-45deg) translateY(0);
+    transition: transform 150ms ease-out 800ms; /* $close-trans-time and $open-trans-time */
+}
+
+.search-box input[type="text"]:focus + button[type="reset"]:after,
+.search-box input[type="text"]:not(:placeholder-shown) + button[type="reset"]:after {
+    opacity: 1;
+    transition: top 150ms ease-out (800ms + 150ms), 
+                right 150ms ease-out (800ms + 150ms), 
+                opacity 150ms ease (800ms + 150ms);
+}
+
+.search-box button[type="reset"] {
+    background-color: transparent;
+    width: 1.4em; /* $handle-height */
+    height: 1.4em; /* $handle-height */
+    border: 0;
+    padding: 0;
+    outline: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(2.5em / 2 - 1.4em / 2); /* ($size / 2) - ($handle-height / 2) */
+    right: calc(2.5em / 2 - 1.4em / 2); /* ($size / 2) - ($handle-height / 2) */
+    transform: rotate(-45deg) translateY(calc(2.5em - 0.3em)); /* $size - $frame-thickness */
+    transition: transform 150ms ease-out 150ms; /* $close-trans-time */
+}
+
+.search-box button[type="reset"]:before,
+.search-box button[type="reset"]:after {
+    content: "";
+    background-color: #000000; /* $frame-color */
+    width: 0.3em; /* $frame-thickness */
+    height: 1.4em; /* $handle-height */
+    position: absolute;
+}
+
+.search-box button[type="reset"]:after {
+    transform: rotate(90deg);}

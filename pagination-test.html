@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .pagination-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+        
+        .page-item {
+            margin: 0 5px;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .page-item.active .page-link {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .page-item.disabled .page-link {
+            color: #ccc;
+            pointer-events: none;
+        }
+        
+        .product-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">Pagination Test</h1>
+        
+        <div class="product-catalog row">
+            <!-- Generated product cards will be here -->
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Create 30 sample product cards
+        $(document).ready(function() {
+            const catalog = $('.product-catalog');
+            
+            for (let i = 1; i <= 30; i++) {
+                const card = `
+                    <div class="col-md-4">
+                        <div class="product-card" data-category="test">
+                            <h3>Product ${i}</h3>
+                            <p>This is a sample product description for product ${i}.</p>
+                            <div class="price">$${(Math.random() * 500 + 50).toFixed(2)}</div>
+                        </div>
+                    </div>
+                `;
+                catalog.append(card);
+            }
+        });
+    </script>
+    
+    <!-- Pagination script -->
+    <script src="pagination_fix.js"></script>
+</body>
+</html> 

@@ -1,0 +1,3727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniture Catalogue - EVO_SPACE</title>
+    <!-- Bootstrap CSS (v5.1.3) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Kept v5 for wider icon compatibility unless v6 is specifically needed for new icons -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Cart Styles -->
+    <link rel="stylesheet" href="cart-styles.css">
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            display: flex; /* For sticky footer */
+            flex-direction: column; /* For sticky footer */
+            min-height: 100vh; /* For sticky footer */
+        }
+        .content-wrap { /* For sticky footer */
+            flex: 1;
+        }
+        
+        /* Standard Navbar (Green/White) */
+        .site-navbar {
+            background-color: #254336; /* Main green color */
+            padding: 0.8rem 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .site-navbar .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 1.75rem;
+            padding-top: 0; /* Adjust for logo image */
+            padding-bottom: 0; /* Adjust for logo image */
+            display: flex;
+            align-items: center;
+        }
+        .site-navbar .navbar-brand img {
+            height: 50px; /* Adjust as needed */
+            width: auto;
+        }
+        .site-navbar .navbar-brand:hover { color: #f0f0f0; }
+        .site-navbar .nav-link {
+            color: white !important;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+        }
+        .site-navbar .nav-link:hover, 
+        .site-navbar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        .site-navbar .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .site-navbar .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        .site-navbar .cart-link-header .badge {
+            background-color: #DAD3BE !important;
+            color: #254336 !important;
+            font-weight: bold;
+            font-size: 0.75em;
+            padding: 0.3em 0.5em;
+        }
+        
+        @media (max-width: 991.98px) { /* BS5 lg breakpoint for navbar collapse */
+            .site-navbar .navbar-collapse {
+                background-color: #254336; /* Ensure green background */
+                padding: 0.75rem; /* Add some padding */
+                margin-top: 0.5rem; /* Optional: space from toggler */
+                border-radius: 0.375rem; /* BS5 standard radius */
+                box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); /* Optional: nice shadow */
+            }
+            .site-navbar .navbar-nav .nav-link {
+                padding: 0.6rem 1rem; /* Adjust padding for touch */
+                margin: 0.25rem 0; /* Spacing for links in collapsed menu */
+            }
+             .site-navbar .navbar-nav .nav-link:hover,
+             .site-navbar .navbar-nav .nav-link.active {
+                background-color: rgba(255, 255, 255, 0.15); /* Slightly more visible hover */
+            }
+            .site-navbar .navbar-nav .dropdown-menu {
+                background-color: #254336; /* Ensure dropdown menu also green */
+                border: none;
+                padding: 0.5rem 0;
+            }
+            .site-navbar .navbar-nav .dropdown-item {
+                color: white;
+                padding: 0.5rem 1.5rem;
+            }
+            .site-navbar .navbar-nav .dropdown-item:hover,
+            .site-navbar .navbar-nav .dropdown-item:focus {
+                background-color: rgba(255, 255, 255, 0.15);
+            }
+        }
+        
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+            gap: 15px;
+        }
+        
+        .category-link {
+            padding: 8px 20px;
+            background-color: #fff;
+            color: #333;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid #eaeaea;
+        }
+        
+        .category-link:hover, .category-link.active {
+            background-color: #254336;
+            color: #fff;
+            border-color: #254336;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Custom Hamburger Menu Icon */
+        .navbar-toggler {
+            border: none;
+            padding: 0;
+            outline: none !important;
+        }
+        
+        .navbar-toggler-icon {
+            /* background-image: none !important; */
+            position: relative;
+            height: 24px;
+            width: 30px;
+            display: inline-block;
+        }
+        
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after,
+        .navbar-toggler-icon span {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #254336;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-toggler-icon::before {
+            content: '';
+            top: 0;
+        }
+        
+        .navbar-toggler-icon span {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .navbar-toggler-icon::after {
+            content: '';
+            bottom: 0;
+        }
+        
+        .navbar-toggler:hover .navbar-toggler-icon::before,
+        .navbar-toggler:hover .navbar-toggler-icon::after,
+        .navbar-toggler:hover .navbar-toggler-icon span {
+            background-color: #1a2f27;
+        }
+        
+        /* Responsive Adjustments for Category Nav */
+        @media (max-width: 768px) {
+            .category-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .category-link {
+                width: 80%;
+                text-align: center;
+            }
+        }
+        
+        /* Product Card */
+        .product-card {
+            position: relative;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-image-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Reverted to contain to prevent cropping */
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image-container img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            height: 54px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .price-section {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-right: 10px;
+        }
+        
+        .original-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .discount-badge {
+            font-size: 0.75rem;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .rating-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .stars {
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+        
+        .review-count {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        /* Product Overlay */
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 20px;
+        }
+        
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .product-overlay button {
+            margin: 5px 0;
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-view-btn {
+            background-color: #fff;
+            color: #333;
+        }
+        
+        .add-to-cart-btn {
+            background-color: #254336;
+            color: white;
+        }
+
+        .place-in-space-btn {
+            background-color: #6c757d; /* Bootstrap secondary grey */
+            color: white;
+        }
+        .place-in-space-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        .product-overlay button i {
+            margin-right: 8px;
+        }
+        
+        .product-overlay button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Pagination Styles */
+        .pagination-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+        
+        .page-item {
+            margin: 0 5px;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            color: #254336;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .page-item.active .page-link {
+            background-color: #254336;
+            color: #fff;
+            border-color: #254336;
+        }
+        
+        .page-item.disabled .page-link {
+            color: #ccc;
+            pointer-events: none;
+        }
+        
+        .page-link:hover:not(.page-item.active .page-link):not(.page-item.disabled .page-link) {
+            background-color: #f5f5f5;
+        }
+        
+        .product-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 30px auto;
+            padding: 25px;
+            width: 90%;
+            max-width: 1100px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            animation: modalFadeIn 0.4s ease;
+            transform: translateY(10px);
+            transition: transform 0.4s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(10px); }
+        }
+        
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from { 
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .close-modal:hover {
+            color: #333;
+            background-color: rgba(0,0,0,0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 10px 0;
+        }
+        
+        /* Enhanced Modal Styles */
+        .product-carousel-inner {
+            height: 450px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-item {
+            height: 450px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .carousel-item img {
+            max-height: 90%;
+            max-width: 90%;
+            object-fit: contain;
+            margin: 0 auto;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+        
+        .carousel-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .carousel-control-prev, .carousel-control-next {
+            width: 10%;
+            opacity: 0.7;
+            background-color: rgba(37, 67, 54, 0.15);
+            border-radius: 50%;
+            height: 45px;
+            width: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-control-prev:hover, .carousel-control-next:hover {
+            background-color: rgba(37, 67, 54, 0.3);
+            opacity: 1;
+        }
+        
+        .carousel-control-prev {
+            left: 15px;
+        }
+        
+        .carousel-control-next {
+            right: 15px;
+        }
+        
+        .carousel-indicators {
+            bottom: 0;
+        }
+        
+        .carousel-indicators li {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 5px;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicators li:hover {
+            opacity: 0.9;
+            transform: scale(1.2);
+        }
+        
+        .carousel-indicators li.active {
+            background-color: #254336;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        .product-details {
+            padding: 0 20px 0 30px;
+            height: 450px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ddd #f5f5f5;
+        }
+        
+        .product-details::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .product-details::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .product-details::-webkit-scrollbar-thumb {
+            background-color: #ddd;
+            border-radius: 10px;
+        }
+        
+        .product-details h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #254336;
+            line-height: 1.2;
+        }
+        
+        .modal-rating-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-rating-section .stars {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        
+        .modal-price-section {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .modal-price-section .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #254336;
+            margin-right: 15px;
+        }
+        
+        .modal-price-section .original-price {
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            color: #999;
+        }
+        
+        .modal-price-section .discount-badge {
+            font-size: 0.9rem;
+            padding: 5px 12px;
+            margin-left: 15px;
+            border-radius: 30px;
+            background-color: #ff6b6b;
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .product-availability {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .availability-status {
+            color: #28a745;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .shipping-time {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .product-description-short {
+            margin-bottom: 25px;
+            color: #555;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        
+        .product-features {
+            margin-bottom: 25px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .product-features h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #254336;
+        }
+        
+        .feature-list {
+            padding-left: 20px;
+            color: #555;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 5px;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .quantity-selector {
+            margin: 25px 0;
+        }
+        
+        .quantity-selector label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+        
+        .quantity-control-group {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .quantity-control {
+            background: #f5f5f5;
+            border: none;
+            padding: 12px 18px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #333;
+        }
+        
+        .quantity-control:hover {
+            background: #e5e5e5;
+            color: #254336;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            font-size: 16px;
+            border: none;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            padding: 12px 0;
+            font-weight: 600;
+        }
+        
+        .modal-add-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #254336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(37, 67, 54, 0.2);
+        }
+        
+        .modal-add-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .modal-add-btn:hover {
+            background-color: #1a332a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 67, 54, 0.3);
+            animation: pulse 1s infinite;
+        }
+        
+        .modal-add-btn:active {
+            transform: translateY(-1px);
+            animation: none;
+        }
+        
+        .product-meta {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #666;
+            background-color: #f8f9fa;
+            padding: 5px 12px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        
+        .meta-label {
+            font-weight: 600;
+            margin-right: 5px;
+            color: #254336;
+        }
+        
+        /* Tabs Styles */
+        .product-tabs {
+            margin-top: 40px;
+        }
+        
+        .nav-tabs {
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-tabs .nav-link {
+            color: #666;
+            font-weight: 600;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 12px 25px;
+            transition: all 0.3s;
+            margin: 0 10px;
+            font-size: 1.05rem;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: #254336;
+            background-color: rgba(37, 67, 54, 0.05);
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: #254336;
+            border-bottom-color: #254336;
+            background-color: rgba(37, 67, 54, 0.05);
+        }
+        
+        .tab-content {
+            padding: 40px 30px;
+            background-color: #fff;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .description-content {
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.05rem;
+        }
+        
+        .description-content p {
+            margin-bottom: 20px;
+        }
+        
+        .specs-table {
+            font-size: 1rem;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 5px;
+        }
+        
+        .specs-table tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+        
+        .specs-table tr td {
+            padding: 12px 15px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .specs-table tr td:first-child {
+            width: 30%;
+            font-weight: 600;
+            color: #333;
+            border-radius: 8px 0 0 8px;
+            border-left: 1px solid #eee;
+        }
+        
+        .specs-table tr td:last-child {
+            border-radius: 0 8px 8px 0;
+            border-right: 1px solid #eee;
+        }
+        
+        /* Reviews Section */
+        .reviews-summary {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .overall-rating {
+            flex: 0 0 200px;
+            text-align: center;
+            padding-right: 30px;
+            border-right: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+        
+        .rating-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #254336;
+            line-height: 1;
+        }
+        
+        .rating-stars {
+            font-size: 1.8rem;
+            color: #ffc107;
+            margin: 10px 0;
+        }
+        
+        .rating-count {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .rating-breakdown {
+            flex: 1;
+            padding-left: 30px;
+            min-width: 300px;
+        }
+        
+        .rating-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .rating-level {
+            flex: 0 0 60px;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .progress {
+            flex: 1;
+            height: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background-color: #ffc107;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .rating-percent {
+            color: #666;
+            font-size: 0.95rem;
+            flex: 0 0 40px;
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .review-list {
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #ddd #f5f5f5;
+            border-radius: 8px;
+        }
+        
+        .review-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .review-list::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .review-list::-webkit-scrollbar-thumb {
+            background-color: #ddd;
+            border-radius: 10px;
+        }
+        
+        .review-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .review-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .reviewer-name {
+            font-weight: 600;
+            color: #254336;
+            font-size: 1.1rem;
+        }
+        
+        .review-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .review-content {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        
+        .review-content p {
+            margin-bottom: 0;
+        }
+        
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            padding: 15px 20px;
+            z-index: 1001;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .notification.success i {
+            color: #28a745;
+        }
+        
+        .notification.error i {
+            color: #dc3545;
+        }
+        
+        .notification span {
+            font-weight: 500;
+        }
+        
+        /* Fix for modal on mobile */
+        @media (max-width: 767px) {
+            .modal-content {
+                margin: 20px auto;
+                width: 95%;
+            }
+            
+            .product-details {
+                padding: 0;
+                margin-top: 20px;
+            }
+        }
+        
+        /* Standard Footer */
+        .site-footer {
+            background-color: #254336; /* Dark Green */
+            color: white;
+            padding: 2.5rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .site-footer p {
+            margin-bottom: 0.75rem;
+        }
+        .site-footer a {
+            color: #DAD3BE; /* Accent beige for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .site-footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Standardized Navigation -->
+    <nav class="navbar navbar-expand-lg site-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="EVO_SPACE__7_-removebg-preview.png" alt="EVO_SPACE Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavContent" aria-controls="navbarNavContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="catalogue-fixed.html">Shop</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategories" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
+                            <li><a class="dropdown-item category-link" href="#living-room" data-category="living-room">Living Room</a></li>
+                            <li><a class="dropdown-item category-link" href="#bedroom" data-category="bedroom">Bedroom</a></li>
+                            <li><a class="dropdown-item category-link" href="#kitchen" data-category="kitchen">Kitchen & Dining</a></li>
+                            <li><a class="dropdown-item category-link" href="#office" data-category="office">Office</a></li>
+                            <li><a class="dropdown-item category-link" href="#decor" data-category="decor">Décor</a></li>
+                            <li><a class="dropdown-item category-link" href="#kids" data-category="kids">Kids\' Furniture</a></li>
+                            <li><a class="dropdown-item category-link" href="#vintage" data-category="vintage">Vintage & Antique</a></li>
+                            <li><a class="dropdown-item category-link" href="#home-decor" data-category="home-decor">Home Décor</a></li>
+                            <li><a class="dropdown-item category-link" href="#entryway" data-category="entryway">Entryway</a></li>
+                            <li><a class="dropdown-item category-link" href="#luxury" data-category="luxury">Luxury</a></li>
+                            <li><a class="dropdown-item category-link" href="#space-saving" data-category="space-saving">Space-Saving</a></li>
+                            <li><a class="dropdown-item category-link" href="#bathroom" data-category="bathroom">Bathroom</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item category-link" href="#all" data-category="all">All Products</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-link-header" href="cart-page.html" id="cartButtonHeader">
+                            <i class="fas fa-shopping-cart"></i> Cart 
+                            <span class="badge cart-count ms-1">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrap">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+        <h1 class="mb-4 text-center">Our Collection</h1>
+        
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <a href="#all" class="category-link active" data-category="all" id="all">All Products</a>
+            <a href="#living-room" class="category-link" data-category="living-room" id="living-room">Living Room</a>
+            <a href="#bedroom" class="category-link" data-category="bedroom" id="bedroom">Bedroom</a>
+            <a href="#kitchen" class="category-link" data-category="kitchen" id="kitchen">Kitchen & Dining</a>
+            <a href="#office" class="category-link" data-category="office" id="office">Office</a>
+            <a href="#decor" class="category-link" data-category="decor" id="decor">Décor</a>
+            <a href="#kids" class="category-link" data-category="kids" id="kids">Kids' Furniture</a>
+            <a href="#vintage" class="category-link" data-category="vintage" id="vintage">Vintage & Antique</a>
+            <a href="#home-decor" class="category-link" data-category="home-decor" id="home-decor">Home Décor</a>
+            <a href="#entryway" class="category-link" data-category="entryway" id="entryway">Entryway</a>
+            <a href="#luxury" class="category-link" data-category="luxury" id="luxury">Luxury</a>
+            <a href="#space-saving" class="category-link" data-category="space-saving" id="space-saving">Space-Saving</a>
+            <a href="#bathroom" class="category-link" data-category="bathroom" id="bathroom">Bathroom</a>
+        </div>
+        
+        <!-- Product Catalog -->
+        <div class="row product-catalog">
+            <!-- Sample products, these will be shown 9 per page -->
+            <!-- Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://images-cdn.ubuy.co.in/653b495177dcef06621bc02e-yodolla-84-2-green-velvet-sofa-couch.jpg" alt="Velvet Sofa">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxe Velvet Sofa</h3>
+                        <p class="product-description">Elegant velvet sofa with sturdy wooden legs and comfortable cushions.</p>
+                        <div class="price-section">
+                            <span class="price">$849.99</span>
+                            <span class="original-price">$999.99</span>
+                            <span class="discount-badge">15% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(42 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://m.media-amazon.com/images/I/91Xl2I-LXaL._SX679_.jpg" alt="Platform Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Platform Bed</h3>
+                        <p class="product-description">Minimalist platform bed with integrated storage and premium mattress support.</p>
+                        <div class="price-section">
+                            <span class="price">$649.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(28 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Dining-Table-Transparent-Background-PNG.png" alt="Dining Set">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Scandinavian Dining Set</h3>
+                        <p class="product-description">Clean-lined dining table with 4 matching chairs. Natural wood finish.</p>
+                        <div class="price-section">
+                            <span class="price">$799.99</span>
+                            <span class="original-price">$899.99</span>
+                            <span class="discount-badge">11% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(36 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.nicepng.com/png/full/405-4059106_modern-office-desk-transparent-png-office-desk-png.png" alt="Office Desk">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Executive Office Desk</h3>
+                        <p class="product-description">Spacious executive desk with drawer storage and built-in cable management.</p>
+                        <div class="price-section">
+                            <span class="price">$549.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(19 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://m.media-amazon.com/images/I/71IqBuirBpL._SX425_.jpg" alt="Accent Chair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Accent Armchair</h3>
+                        <h3>Designer Floor Lamp</h3>
+                        <p class="product-description">Modern floor lamp with adjustable lighting. Sleek metal frame with fabric shade.</p>
+                        <div class="price-section">
+                            <span class="price">$179.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(23 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 7 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Wooden-Table-PNG-Free-Image.png" alt="Coffee Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Coffee Table</h3>
+                        <p class="product-description">Sleek coffee table with minimalist design. Features sturdy oak construction.</p>
+                        <div class="price-section">
+                            <span class="price">$299.99</span>
+                            <span class="original-price">$349.99</span>
+                            <span class="discount-badge">14% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(31 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngitem.com/pimgs/m/163-1634859_tv-stand-png-transparent-png.png" alt="TV Stand">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Entertainment Center</h3>
+                        <p class="product-description">Spacious entertainment unit with cable management and plenty of storage.</p>
+                        <div class="price-section">
+                            <span class="price">$499.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(24 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 9 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://pngimg.com/d/sofa_PNG6860.png" alt="Sectional Sofa">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>L-Shaped Sectional Sofa</h3>
+                        <p class="product-description">Versatile sectional sofa with modular design. Can be rearranged to fit your space.</p>
+                        <div class="price-section">
+                            <span class="price">$1,299.99</span>
+                            <span class="original-price">$1,499.99</span>
+                            <span class="discount-badge">13% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(47 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 10 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Side-Table-PNG-Transparent.png" alt="Side Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Side Table</h3>
+                        <p class="product-description">Elegant side table with marble top and gold metal base. Perfect accent piece.</p>
+                        <div class="price-section">
+                            <span class="price">$179.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(18 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 11 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://pngimg.com/d/armchair_PNG7021.png" alt="Recliner Chair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Comfort Recliner Chair</h3>
+                        <p class="product-description">Power recliner with built-in USB charging ports. Features luxurious faux leather.</p>
+                        <div class="price-section">
+                            <span class="price">$599.99</span>
+                            <span class="original-price">$699.99</span>
+                            <span class="discount-badge">14% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(62 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 12 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://pngimg.com/d/wardrobe_PNG26.png" alt="Wardrobe">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Contemporary Sofa</h3>
+                        <p class="product-description">Sleek modern design with high-density foam cushions and stain-resistant fabric.</p>
+                        <div class="price-section">
+                            <span class="price">$899.99</span>
+                            <span class="original-price">$1099.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(56 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 14 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Leather-Sofa-PNG-Free-Download.png" alt="Leather Sofa">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Leather Sofa</h3>
+                        <p class="product-description">Genuine leather upholstery with classic nailhead trim. Features deep cushioning for comfort.</p>
+                        <div class="price-section">
+                            <span class="price">$1,499.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(43 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 15 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/8/Modern-TV-Cabinet-Transparent-Background-PNG.png" alt="TV Console">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Floating TV Console</h3>
+                        <p class="product-description">Wall-mounted entertainment center with hidden cable management and ambient LED lighting.</p>
+                        <div class="price-section">
+                            <span class="price">$599.99</span>
+                            <span class="original-price">$749.99</span>
+                            <span class="discount-badge">20% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(68 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 16 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="stool.png" alt="stool">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>stool</h3>
+                        <p class="product-description">Set of 3 tables with marble tops and gold metal bases. Perfect for small spaces.</p>
+                        <div class="price-section">
+                            <span class="price">$329.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(37 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 17 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Antique-Bookshelf-PNG-Image-File.png" alt="Bookshelf">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Industrial Bookshelf</h3>
+                        <p class="product-description">5-tier bookshelf with solid wood shelves and metal frame. Perfect for displaying books and décor.</p>
+                        <div class="price-section">
+                            <span class="price">$249.99</span>
+                            <span class="original-price">$299.99</span>
+                            <span class="discount-badge">16% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(52 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 18 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/399-3997693_accent-chair-png-modern-accent-chair-png.png" alt="Modern Accent Chair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Curved Accent Chair</h3>
+                        <p class="product-description">Contemporary curved chair with bouclé fabric. Adds texture and comfort to any living space.</p>
+                        <div class="price-section">
+                            <span class="price">$399.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(48 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 19 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Rug-PNG-Free-Image.png" alt="Area Rug">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Geometric Area Rug</h3>
+                        <p class="product-description">8' x 10' patterned rug with soft pile. Stain-resistant and perfect for high-traffic areas.</p>
+                        <div class="price-section">
+                            <span class="price">$229.99</span>
+                            <span class="original-price">$279.99</span>
+                            <span class="discount-badge">17% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(41 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Living Room Product 20 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="living-room">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/967-9670881_ottomans-footstools-round-ottoman-png.png" alt="Ottoman">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Storage Ottoman</h3>
+                        <p class="product-description">Versatile ottoman with hidden storage compartment. Perfect as a coffee table, footrest, or extra seating.</p>
+                        <div class="price-section">
+                            <span class="price">$149.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(73 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Products -->
+            
+            <!-- Bedroom Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/233-2338708_king-bed-png.png" alt="King Bed Frame">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Upholstered King Bed</h3>
+                        <p class="product-description">Plush upholstered bed frame with diamond button tufting and solid wood legs.</p>
+                        <div class="price-section">
+                            <span class="price">$899.99</span>
+                            <span class="original-price">$1099.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(62 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Queen-Bed-PNG-Clipart.png" alt="Queen Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Platform Bed</h3>
+                        <p class="product-description">Low-profile platform bed with clean lines and natural wood finish. No box spring needed.</p>
+                        <div class="price-section">
+                            <span class="price">$699.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(47 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2016/05/Bed-Download-PNG.png" alt="Canopy Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Canopy Bed</h3>
+                        <p class="product-description">Sleek metal canopy frame with minimalist design. Available in queen and king sizes.</p>
+                        <div class="price-section">
+                            <span class="price">$799.99</span>
+                            <span class="original-price">$949.99</span>
+                            <span class="discount-badge">15% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(39 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 4 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/6/Dresser-PNG-Image.png" alt="Dresser">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Six-Drawer Dresser</h3>
+                        <p class="product-description">Spacious dresser with smooth gliding drawers and brushed metal hardware.</p>
+                        <div class="price-section">
+                            <span class="price">$599.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(52 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 5 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Chest-Of-Drawers-Bedroom-PNG-Free-Download.png" alt="Chest of Drawers">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Tall Chest of Drawers</h3>
+                        <p class="product-description">Vertical 5-drawer chest with ample storage for folded clothes. Space-saving design.</p>
+                        <div class="price-section">
+                            <span class="price">$499.99</span>
+                            <span class="original-price">$599.99</span>
+                            <span class="discount-badge">16% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(37 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 6 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Bedside-Table-Transparent-Background-PNG.png" alt="Nightstand">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Floating Nightstand</h3>
+                        <p class="product-description">Wall-mounted nightstand with drawer and open shelf. Includes integrated USB charging ports.</p>
+                        <div class="price-section">
+                            <span class="price">$199.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(73 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 7 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/15/King-Size-Headboard-PNG-Transparent.png" alt="Headboard">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Tufted Headboard</h3>
+                        <p class="product-description">Luxurious wingback headboard with diamond tufting. Easy attachment to most bed frames.</p>
+                        <div class="price-section">
+                            <span class="price">$349.99</span>
+                            <span class="original-price">$429.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(45 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 8 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Wooden-Wardrobe-PNG-Pic.png" alt="Armoire">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Classic Armoire</h3>
+                        <p class="product-description">Traditional armoire with hanging rod and adjustable shelves. Perfect for rooms without closets.</p>
+                        <div class="price-section">
+                            <span class="price">$849.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(31 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 9 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Mattress-PNG-Transparent-Image.png" alt="Mattress">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Hybrid Mattress</h3>
+                        <p class="product-description">Premium mattress with pocketed coils and cooling gel memory foam. 100-night trial included.</p>
+                        <div class="price-section">
+                            <span class="price">$999.99</span>
+                            <span class="original-price">$1299.99</span>
+                            <span class="discount-badge">23% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(124 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bedroom Product 10 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bedroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Bedroom-Bench-PNG-Free-Image.png" alt="Bench">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Upholstered Bench</h3>
+                        <p class="product-description">Elegant end-of-bed bench with storage. Perfect for putting on shoes or storing extra blankets.</p>
+                        <div class="price-section">
+                            <span class="price">$249.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(53 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen & Dining Products -->
+            
+            <!-- Kitchen Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Wooden-Dining-Table-PNG-HD-Image.png" alt="Dining Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Extendable Dining Table</h3>
+                        <p class="product-description">Solid wood table with extension leaf. Seats 6-8 people when fully extended.</p>
+                        <div class="price-section">
+                            <span class="price">$899.99</span>
+                            <span class="original-price">$1099.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(67 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/3/Modern-Dining-Chair-PNG-Picture.png" alt="Dining Chair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Mid-Century Dining Chairs</h3>
+                        <p class="product-description">Set of 4 modern dining chairs with curved wooden backs and upholstered seats.</p>
+                        <div class="price-section">
+                            <span class="price">$599.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(42 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Kitchen-Island-PNG-Free-Download.png" alt="Kitchen Island">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Rolling Kitchen Island</h3>
+                        <p class="product-description">Multi-functional kitchen island with marble top, storage drawers, and towel racks.</p>
+                        <div class="price-section">
+                            <span class="price">$649.99</span>
+                            <span class="original-price">$799.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(89 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 4 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/22/Bar-Stool-PNG-Transparent.png" alt="Bar Stools">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Adjustable Bar Stools</h3>
+                        <p class="product-description">Set of 2 swivel bar stools with adjustable height and footrests. Perfect for kitchen islands.</p>
+                        <div class="price-section">
+                            <span class="price">$299.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(54 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 5 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/246-2467383_baker-rack-png-image-bakers-rack-png.png" alt="Baker's Rack">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Industrial Baker's Rack</h3>
+                        <p class="product-description">Metal and wood kitchen storage rack with wine bottle holder and multiple shelves.</p>
+                        <div class="price-section">
+                            <span class="price">$229.99</span>
+                            <span class="original-price">$279.99</span>
+                            <span class="discount-badge">17% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(37 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 6 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/266-2667252_china-cabinet-png-image-china-cabinet-png.png" alt="China Cabinet">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern China Cabinet</h3>
+                        <p class="product-description">Glass-door display cabinet with interior lighting. Perfect for displaying fine china and glassware.</p>
+                        <div class="price-section">
+                            <span class="price">$799.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(28 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 7 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Kitchen-Buffet-PNG-Free-Image.png" alt="Buffet Cabinet">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Sideboard Buffet Cabinet</h3>
+                        <p class="product-description">Multi-functional storage cabinet with adjustable shelves and spacious drawers for dinnerware.</p>
+                        <div class="price-section">
+                            <span class="price">$549.99</span>
+                            <span class="original-price">$649.99</span>
+                            <span class="discount-badge">15% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(45 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 8 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/3/Dining-Table-Transparent-Background-PNG.png" alt="Counter Height Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Counter Height Dining Set</h3>
+                        <p class="product-description">Elevated dining table with 4 matching stools. Perfect for small spaces and casual dining.</p>
+                        <div class="price-section">
+                            <span class="price">$699.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(51 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 9 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/3/Pendant-Light-Download-Transparent-PNG-Image.png" alt="Pendant Lights">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Kitchen Pendant Lights</h3>
+                        <p class="product-description">Set of 3 adjustable hanging pendant lights. Perfect for kitchen islands and dining areas.</p>
+                        <div class="price-section">
+                            <span class="price">$249.99</span>
+                            <span class="original-price">$299.99</span>
+                            <span class="discount-badge">16% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(73 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kitchen Product 10 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kitchen">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2018/04/Carpet-PNG-Pic.png" alt="Kitchen Rug">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Anti-Fatigue Kitchen Rug</h3>
+                        <p class="product-description">Cushioned kitchen mat with non-slip backing. Perfect for areas where you stand for long periods.</p>
+                        <div class="price-section">
+                            <span class="price">$89.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(119 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Products -->
+            
+            <!-- Office Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/233-2337298_executive-desk-png-executive-desk-png.png" alt="Executive Desk">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="place-in-space-btn">
+                                <i class="fas fa-cube"></i> Place in Your Space
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Executive Office Desk</h3>
+                        <p class="product-description">Spacious executive desk with built-in file cabinets and cable management system.</p>
+                        <div class="price-section">
+                            <span class="price">$899.99</span>
+                            <span class="original-price">$1099.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(42 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Ergonomic-Office-Chair-PNG-Image.png" alt="Office Chair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ergonomic Office Chair</h3>
+                        <p class="product-description">Fully adjustable chair with lumbar support, mesh back, and padded armrests for all-day comfort.</p>
+                        <div class="price-section">
+                            <span class="price">$349.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(87 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Office-Bookshelf-Download-PNG-Image.png" alt="Bookshelf">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Bookcase</h3>
+                        <p class="product-description">5-tier open bookcase with adjustable shelves. Perfect for displaying books, awards, and décor.</p>
+                        <div class="price-section">
+                            <span class="price">$279.99</span>
+                            <span class="original-price">$329.99</span>
+                            <span class="discount-badge">15% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(63 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 4 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/File-Cabinet-PNG-Image-File.png" alt="Filing Cabinet">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Lateral File Cabinet</h3>
+                        <p class="product-description">Two-drawer file cabinet with smooth gliding rails and secure locking system.</p>
+                        <div class="price-section">
+                            <span class="price">$229.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(47 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 5 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Standing-Desk-PNG-Free-Image.png" alt="Standing Desk">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Adjustable Standing Desk</h3>
+                        <p class="product-description">Electric height-adjustable desk with memory settings. Smooth transition from sitting to standing.</p>
+                        <div class="price-section">
+                            <span class="price">$499.99</span>
+                            <span class="original-price">$599.99</span>
+                            <span class="discount-badge">16% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(93 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 6 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/192-1924072_desk-lamp-png-desk-lamp-transparent.png" alt="Desk Lamp">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>LED Desk Lamp</h3>
+                        <p class="product-description">Adjustable lamp with multiple brightness levels and color temperature settings. Includes USB charging port.</p>
+                        <div class="price-section">
+                            <span class="price">$79.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(125 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 7 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Desk-Chair-PNG-File.png" alt="Task Chair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Mesh Task Chair</h3>
+                        <p class="product-description">Breathable mesh chair with adjustable height and flip-up arms. Space-saving design for small offices.</p>
+                        <div class="price-section">
+                            <span class="price">$179.99</span>
+                            <span class="original-price">$219.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(67 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 8 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Partition-PNG-Free-Download.png" alt="Office Partition">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Mobile Room Divider</h3>
+                        <p class="product-description">Flexible panel divider on wheels. Create privacy and define spaces in open floor plans.</p>
+                        <div class="price-section">
+                            <span class="price">$249.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(31 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 9 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Office-PNG-Image-Background.png" alt="Computer Desk">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>L-Shaped Computer Desk</h3>
+                        <p class="product-description">Corner desk with integrated keyboard tray and monitor stand. Maximizes space efficiency.</p>
+                        <div class="price-section">
+                            <span class="price">$349.99</span>
+                            <span class="original-price">$429.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(85 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Office Product 10 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="office">
+                    <div class="product-image-container">
+                        <img src="https://www.pngkey.com/png/full/150-1506284_office-shelf-png-image-bookshelf-png.png" alt="Small Bookshelf">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Compact Bookcase</h3>
+                        <p class="product-description">3-tier narrow bookshelf designed for small spaces. Ideal for home offices and apartment living.</p>
+                        <div class="price-section">
+                            <span class="price">$149.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(57 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Décor Products -->
+            
+            <!-- Décor Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/3/Wall-Clock-PNG-Image-Background.png" alt="Wall Clock">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Oversized Wall Clock</h3>
+                        <p class="product-description">30-inch decorative wall clock with metal frame. Makes a bold statement in any room.</p>
+                        <div class="price-section">
+                            <span class="price">$129.99</span>
+                            <span class="original-price">$159.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(76 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Décor Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/3/Table-Lamp-PNG-Photo.png" alt="Table Lamp">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ceramic Table Lamp</h3>
+                        <p class="product-description">Handcrafted ceramic base with linen shade. Perfect ambient lighting for bedside tables and living rooms.</p>
+                        <div class="price-section">
+                            <span class="price">$89.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(45 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Décor Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/3/Wall-Mirror-PNG-Download-Image.png" alt="Wall Mirror">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Round Gold Mirror</h3>
+                        <p class="product-description">36-inch circular mirror with brushed gold frame. Creates the illusion of space in smaller rooms.</p>
+                        <div class="price-section">
+                            <span class="price">$199.99</span>
+                            <span class="original-price">$249.99</span>
+                            <span class="discount-badge">20% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(93 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Décor Product 4 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2016/04/Vase-Free-Download-PNG.png" alt="Decorative Vase">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ceramic Vase Set</h3>
+                        <p class="product-description">Set of 3 handcrafted vases in varying heights. Perfect for fresh or dried flower arrangements.</p>
+                        <div class="price-section">
+                            <span class="price">$79.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(37 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Décor Product 5 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2016/05/Wall-Shelf-PNG-HD.png" alt="Wall Shelves">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Floating Wall Shelves</h3>
+                        <p class="product-description">Set of 3 wooden shelves with hidden brackets. Perfect for displaying photos and small decorative items.</p>
+                        <div class="price-section">
+                            <span class="price">$59.99</span>
+                            <span class="original-price">$79.99</span>
+                            <span class="discount-badge">25% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(128 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Décor Product 6 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2016/04/Pillow-PNG.png" alt="Throw Pillows">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Decorative Throw Pillows</h3>
+                        <p class="product-description">Set of 4 pillows with removable covers in coordinating patterns. Adds comfort and style to sofas.</p>
+                        <div class="price-section">
+                            <span class="price">$49.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(84 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kids' Furniture Products -->
+            
+            <!-- Kids' Furniture Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kids">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Kids-Bed-PNG-Transparent-Image.png" alt="Kids Bunk Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Adventure Bunk Bed</h3>
+                        <p class="product-description">Colorful bunk bed with slide and built-in storage drawers. Safe and durable construction.</p>
+                        <div class="price-section">
+                            <span class="price">$799.99</span>
+                            <span class="original-price">$949.99</span>
+                            <span class="discount-badge">15% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(48 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kids' Furniture Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kids">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Kids-Study-Table-PNG-Free-Image.png" alt="Kids Study Desk">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Children's Study Desk</h3>
+                        <p class="product-description">Height-adjustable study desk with ergonomic design. Includes bookshelf and storage drawers.</p>
+                        <div class="price-section">
+                            <span class="price">$249.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(35 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kids' Furniture Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="kids">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Kids-Wardrobe-PNG-Free-Download.png" alt="Kids Wardrobe">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Playful Kids Wardrobe</h3>
+                        <p class="product-description">Colorful wardrobe with adjustable shelves and hanging space. Child-friendly design with rounded edges.</p>
+                        <div class="price-section">
+                            <span class="price">$349.99</span>
+                            <span class="original-price">$429.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(42 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vintage & Antique Products -->
+            
+            <!-- Vintage Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="vintage">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/8/Vintage-Furniture-PNG-Free-Image.png" alt="Vintage Armchair">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Victorian Armchair</h3>
+                        <p class="product-description">Authentic Victorian-era armchair with original upholstery. Beautifully preserved with ornate wood carvings.</p>
+                        <div class="price-section">
+                            <span class="price">$1,499.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(27 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vintage Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="vintage">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/8/Antique-Sideboard-Cabinet-Transparent-Background-PNG.png" alt="Antique Cabinet">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Art Deco Sideboard</h3>
+                        <p class="product-description">1930s Art Deco sideboard with inlaid wood details. Completely restored while preserving original character.</p>
+                        <div class="price-section">
+                            <span class="price">$2,199.99</span>
+                            <span class="original-price">$2,499.99</span>
+                            <span class="discount-badge">12% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(19 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vintage Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="vintage">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/6/Vintage-Table-PNG-Transparent-Image.png" alt="Vintage Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Baroque Coffee Table</h3>
+                        <p class="product-description">Handcrafted replica of 18th century Baroque table with marble top and gilded wooden legs.</p>
+                        <div class="price-section">
+                            <span class="price">$899.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(31 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Décor Products -->
+            
+            <!-- Home Décor Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="home-decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Wall-Decoration-PNG-Clipart.png" alt="Wall Art">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Abstract Wall Art Set</h3>
+                        <p class="product-description">Set of 3 canvas prints featuring modern abstract designs. Perfect for contemporary interiors.</p>
+                        <div class="price-section">
+                            <span class="price">$149.99</span>
+                            <span class="original-price">$199.99</span>
+                            <span class="discount-badge">25% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(64 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Décor Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="home-decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2016/07/Curtain-Download-PNG.png" alt="Curtains">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Blackout Curtains</h3>
+                        <p class="product-description">Elegant thermal insulated curtains with noise-reducing properties. Available in various colors and sizes.</p>
+                        <div class="price-section">
+                            <span class="price">$89.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(97 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Décor Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="home-decor">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Decorative-Vase-PNG-HD-Image.png" alt="Decorative Vases">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ceramic Vase Collection</h3>
+                        <p class="product-description">Set of 3 handcrafted ceramic vases in complementary shapes and textures. Perfect for dry or fresh arrangements.</p>
+                        <div class="price-section">
+                            <span class="price">$129.99</span>
+                            <span class="original-price">$159.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(76 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Entryway Products -->
+            
+            <!-- Entryway Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="entryway">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Console-Table-PNG-File.png" alt="Console Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Modern Console Table</h3>
+                        <p class="product-description">Slim console table with two drawers and a minimalist design. Perfect for hallways and entryways.</p>
+                        <div class="price-section">
+                            <span class="price">$249.99</span>
+                            <span class="original-price">$299.99</span>
+                            <span class="discount-badge">16% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(53 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Entryway Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="entryway">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/2016/04/Coat-Rack-PNG-HD.png" alt="Coat Rack">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Entryway Coat Rack</h3>
+                        <p class="product-description">Free-standing coat rack with umbrella holder and shoe storage. Made of solid wood and metal accents.</p>
+                        <div class="price-section">
+                            <span class="price">$179.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(87 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Entryway Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="entryway">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Bench-PNG-Picture.png" alt="Entryway Bench">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Storage Bench with Cushion</h3>
+                        <p class="product-description">Entryway bench with padded seat cushion and hidden storage compartment. Perfect for shoes and accessories.</p>
+                        <div class="price-section">
+                            <span class="price">$199.99</span>
+                            <span class="original-price">$249.99</span>
+                            <span class="discount-badge">20% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(105 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Luxury Products -->
+            
+            <!-- Luxury Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="luxury">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Luxury-Sofa-PNG-HD-Image.png" alt="Luxury Sofa">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Italian Leather Sectional</h3>
+                        <p class="product-description">Premium Italian leather sectional with adjustable headrests and built-in recliners. Handcrafted in Italy.</p>
+                        <div class="price-section">
+                            <span class="price">$4,999.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(38 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Luxury Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="luxury">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Luxury-Dining-Table-PNG-Clipart.png" alt="Luxury Dining Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Marble Dining Table Set</h3>
+                        <p class="product-description">Exquisite dining table with genuine marble top and gold-plated steel base. Includes 6 velvet upholstered chairs.</p>
+                        <div class="price-section">
+                            <span class="price">$3,499.99</span>
+                            <span class="original-price">$3,999.99</span>
+                            <span class="discount-badge">12% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(27 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Luxury Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="luxury">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Luxury-Bed-PNG.png" alt="Luxury Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Designer Canopy Bed</h3>
+                        <p class="product-description">Luxurious king-size canopy bed with hand-carved details and premium upholstery. Includes custom mattress.</p>
+                        <div class="price-section">
+                            <span class="price">$5,299.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(19 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Space-Saving Products -->
+            
+            <!-- Space-Saving Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="space-saving">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Convertible-Sofa-Bed-PNG-Image.png" alt="Sofa Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Convertible Sofa Bed</h3>
+                        <p class="product-description">Modern sofa that transforms into a comfortable bed in seconds. Features storage space under the seat.</p>
+                        <div class="price-section">
+                            <span class="price">$699.99</span>
+                            <span class="original-price">$849.99</span>
+                            <span class="discount-badge">17% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(94 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Space-Saving Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="space-saving">
+                    <div class="product-image-container">
+                        <img src="https://www.pngmart.com/files/7/Folding-Table-PNG-Free-Download.png" alt="Folding Dining Table">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Expandable Dining Table</h3>
+                        <p class="product-description">Compact dining table that expands to seat up to 8 people. Folds down to just 10 inches wide when not in use.</p>
+                        <div class="price-section">
+                            <span class="price">$449.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(126 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Space-Saving Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="space-saving">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Wall-Bed-Download-PNG-Image.png" alt="Murphy Bed">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Murphy Wall Bed with Desk</h3>
+                        <p class="product-description">Innovative wall bed that transforms into a desk when folded up. Perfect for home offices and guest rooms.</p>
+                        <div class="price-section">
+                            <span class="price">$1,299.99</span>
+                            <span class="original-price">$1,499.99</span>
+                            <span class="discount-badge">13% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(78 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bathroom Products -->
+            
+            <!-- Bathroom Product 1 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bathroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Bathroom-Vanity-Cabinet-PNG-HD-Image.png" alt="Bathroom Vanity">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Double Sink Vanity</h3>
+                        <p class="product-description">Modern 60-inch bathroom vanity with double sinks, marble countertop, and soft-close drawers.</p>
+                        <div class="price-section">
+                            <span class="price">$899.99</span>
+                            <span class="original-price">$1,099.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(65 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bathroom Product 2 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bathroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Bathroom-Cabinet-PNG-Free-Image.png" alt="Bathroom Tower">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Bathroom Storage Cabinet</h3>
+                        <p class="product-description">Tall linen cabinet with multiple shelves and drawers. Water-resistant finish ideal for bathroom use.</p>
+                        <div class="price-section">
+                            <span class="price">$349.99</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★☆</div>
+                            <span class="review-count">(92 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bathroom Product 3 -->
+            <div class="col-md-4">
+                <div class="product-card" data-category="bathroom">
+                    <div class="product-image-container">
+                        <img src="https://www.pngarts.com/files/7/Bathroom-Shower-PNG-Free-Download.png" alt="Shower Bench">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">
+                                <i class="far fa-eye"></i> Quick View
+                            </button>
+                            <button class="add-to-cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Teak Shower Bench</h3>
+                        <p class="product-description">Waterproof shower bench made from sustainable teak wood. Features shelf for storage and non-slip feet.</p>
+                        <div class="price-section">
+                            <span class="price">$129.99</span>
+                            <span class="original-price">$159.99</span>
+                            <span class="discount-badge">18% OFF</span>
+                        </div>
+                        <div class="rating-section">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(117 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <div class="pagination"></div>
+        <div class="product-count"></div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="product-modal">
+        <div class="modal-content">
+            <span class="close-modal" data-bs-dismiss="modal" aria-label="Close">&times;</span> <!-- Added BS5 dismiss attributes -->
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Product Carousel (Left Side) -->
+                    <div class="col-md-6">
+                        <div id="productCarousel" class="carousel slide" data-bs-ride="false"> <!-- Changed to data-bs-ride -->
+                            <ol class="carousel-indicators">
+                                <!-- Indicators will be populated by JS, ensure they use data-bs-target and data-bs-slide-to -->
+                            </ol>
+                            <div class="carousel-inner product-carousel-inner">
+                                <!-- Main image will be inserted here as active item -->
+                                <!-- Additional images will be added by JavaScript -->
+                            </div>
+                            <a class="carousel-control-prev" href="#productCarousel" role="button" data-bs-slide="prev"> <!-- Changed to data-bs-slide -->
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span> <!-- Changed from sr-only -->
+                            </a>
+                            <a class="carousel-control-next" href="#productCarousel" role="button" data-bs-slide="next"> <!-- Changed to data-bs-slide -->
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span> <!-- Changed from sr-only -->
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Details (Right Side) -->
+                    <div class="col-md-6">
+                        <div class="product-details">
+                            <h2></h2>
+                            <div class="modal-rating-section">
+                                <div class="stars"></div>
+                                <span class="review-count"></span>
+                            </div>
+                            <div class="modal-price-section">
+                                <span class="price"></span>
+                                <span class="original-price"></span>
+                                <span class="discount-badge"></span>
+                            </div>
+                            <div class="product-availability">
+                                <span class="availability-status">In Stock</span>
+                                <span class="shipping-time">Free delivery in 2-3 business days</span>
+                            </div>
+                            <div class="product-description-short"></div>
+                            
+                            <div class="product-features">
+                                <h4>Key Features</h4>
+                                <ul class="feature-list">
+                                    <!-- Features will be added dynamically -->
+                                </ul>
+                            </div>
+                            
+                            <div class="quantity-selector">
+                                <label for="quantity">Quantity:</label>
+                                <div class="quantity-control-group">
+                                    <button class="quantity-control" data-action="decrease">-</button>
+                                    <input type="number" id="quantity" class="quantity-input" min="1" value="1">
+                                    <button class="quantity-control" data-action="increase">+</button>
+                                </div>
+                            </div>
+                            
+                            <button class="modal-add-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            
+                            <div class="product-meta">
+                                <div class="meta-item">
+                                    <span class="meta-label">Category:</span>
+                                    <span class="meta-value category-value"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">SKU:</span>
+                                    <span class="meta-value sku-value"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Details Tabs -->
+                <div class="product-tabs mt-4">
+                    <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button> <!-- BS5 tab button -->
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab" aria-controls="specs" aria-selected="false">Specifications</button> <!-- BS5 tab button -->
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button> <!-- BS5 tab button -->
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="productTabsContent">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab"> <!-- BS5 tab pane -->
+                            <div class="description-content"></div>
+                        </div>
+                        <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab"> <!-- BS5 tab pane -->
+                            <table class="table specs-table">
+                                <tbody>
+                                    <!-- Specifications will be added dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab"> <!-- BS5 tab pane -->
+                            <div class="reviews-summary">
+                                <div class="overall-rating">
+                                    <div class="rating-number">4.5</div>
+                                    <div class="rating-stars">★★★★★</div>
+                                    <div class="rating-count">Based on <span class="review-count-number">0</span> reviews</div>
+                                </div>
+                                <div class="rating-breakdown">
+                                    <div class="rating-bar">
+                                        <span class="rating-level">5 Star</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 70%"></div>
+                                        </div>
+                                        <span class="rating-percent">70%</span>
+                                    </div>
+                                    <div class="rating-bar">
+                                        <span class="rating-level">4 Star</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 20%"></div>
+                                        </div>
+                                        <span class="rating-percent">20%</span>
+                                    </div>
+                                    <div class="rating-bar">
+                                        <span class="rating-level">3 Star</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 5%"></div>
+                                        </div>
+                                        <span class="rating-percent">5%</span>
+                                    </div>
+                                    <div class="rating-bar">
+                                        <span class="rating-level">2 Star</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 3%"></div>
+                                        </div>
+                                        <span class="rating-percent">3%</span>
+                                    </div>
+                                    <div class="rating-bar">
+                                        <span class="rating-level">1 Star</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 2%"></div>
+                                        </div>
+                                        <span class="rating-percent">2%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-list">
+                                <!-- Reviews will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification"></div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Pagination script -->
+    <script src="pagination_fix.js"></script>
+    
+    <!-- Cart Script (MOVED UP) -->
+    <script src="cart.js"></script>
+    
+    <!-- Product Actions Script -->
+    <script src="product-actions.js"></script>
+    
+    <!-- Category Filter Script -->
+    <script src="category-filter.js"></script>
+    
+    <!-- Mobile Nav Script -->
+    <script>
+        // Check if we're on a mobile device or small screen
+        function checkMobile() {
+            return window.innerWidth < 992;
+        }
+        
+        // Initialize mobile nav
+        function initMobileNav() {
+            // Bootstrap 5 handles dropdowns and collapse via data attributes.
+            // Custom JS for closing navbar on link click can be kept if desired.
+            if (checkMobile()) {               
+                // Close navbar when clicking a non-dropdown link
+                const navLinks = document.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                const navbarToggler = document.querySelector('.navbar-toggler');
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navbarCollapse && navbarCollapse.classList.contains('show') && navbarToggler) {
+                            navbarToggler.click();
+                        }
+                    });
+                });
+            }
+        }
+        
+        // Run on page load
+        $(document).ready(function() {
+            initMobileNav();
+            
+            // Also run if window resizes
+            $(window).on('resize', function() {
+                initMobileNav();
+            });
+
+            // Initialize cart count display
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            $('.cart-count').text(totalItems);
+        });
+    </script>
+</body>
+</html> 

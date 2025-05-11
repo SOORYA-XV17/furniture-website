@@ -1,0 +1,3223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>evospace - AR Furniture Shopping</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        /* Core Styles */
+        :root {
+            --primary: #254336;
+            --primary-light: #2E664E;
+            --primary-dark: #1A3428;
+            --accent: #B7B597;
+            --accent-light: #D9D9C6;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #fff;
+            --gray-light: #f8f9fa;
+            --gray-medium: #e9ecef;
+            --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-round: 50px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            scroll-behavior: smooth;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            margin-top: 0;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            z-index: 5;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border: none;
+            padding: 14px 32px;
+            border-radius: var(--radius-round);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(37, 67, 54, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 1rem;
+        }
+        
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: var(--white);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(37, 67, 54, 0.4);
+        }
+        
+        .btn-custom:hover::before {
+            left: 100%;
+        }
+        
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 30px;
+            border-radius: var(--radius-round);
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-outline-custom:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(37, 67, 54, 0.97);
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 12px 0;
+            background-color: rgba(37, 67, 54, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 45px;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            padding: 8px 16px;
+            margin: 0 3px;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+
+        .navbar-dark .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover::after {
+            width: 70%;
+        }
+        
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        
+        .navbar-toggler-icon {
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+        .nav-item:last-child .nav-link {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-round);
+            padding: 8px 20px;
+            margin-left: 15px;
+            transition: var(--transition);
+        }
+        
+        .nav-item:last-child .nav-link:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark);
+        }
+        
+        .nav-item:last-child .nav-link::after {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(37, 67, 54, 0.75)), 
+                              url('main pic.avif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            animation: fadeInDown 1.2s ease-out;
+            letter-spacing: -0.5px;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            max-width: 850px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin: 20px 0 30px;
+            max-width: 700px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            animation: fadeInUp 1.2s ease-out;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        #start-ar-button {
+            animation: fadeInUp 1.5s ease-out, pulse 2s infinite alternate;
+            box-shadow: 0 5px 20px rgba(37, 67, 54, 0.5);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 5px 15px rgba(37, 67, 54, 0.5);
+            }
+            100% {
+                box-shadow: 0 8px 25px rgba(37, 67, 54, 0.8), 0 0 0 15px rgba(37, 67, 54, 0.1);
+            }
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, rgba(252, 252, 252, 1), transparent);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: var(--white);
+            font-size: 2rem;
+            animation: floating 2s ease-in-out infinite;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .scroll-indicator:hover {
+            color: var(--accent);
+        }
+        
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            50% {
+                transform: translateY(-15px) translateX(-50%);
+            }
+        }
+        
+        /* Section Titles */
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 50px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .section-titles {
+            color: var(--white);
+            margin-bottom: 50px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-titles::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--white), rgba(255,255,255,0.5));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: -30px auto 50px;
+        }
+        
+        /* Blog Section Enhanced Styles */
+        #blog {
+            background-color: #f8f9fa;
+            position: relative;
+            padding: 120px 0 100px;
+            overflow: hidden;
+        }
+        
+        .blog-shape-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 1;
+        }
+        
+        .blog-card {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .blog-image {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+        
+        .blog-date {
+            position: absolute;
+            bottom: -25px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 67, 54, 0.3);
+            z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover .blog-date {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 67, 54, 0.4);
+        }
+        
+        .blog-date .day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .blog-date .month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .blog-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .blog-tag {
+            background-color: rgba(37, 67, 54, 0.1);
+            color: var(--primary);
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: var(--radius-round);
+            transition: var(--transition);
+        }
+        
+        .blog-tag:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .blog-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover .blog-title {
+            color: var(--primary-light);
+        }
+        
+        .blog-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .read-more {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding-bottom: 3px;
+            border-bottom: 2px solid transparent;
+            align-self: flex-start;
+            margin-top: auto;
+            transition: var(--transition);
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--primary-light);
+            text-decoration: none;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+                <a href="index.html" class="navbar-brand">
+                    <img src="EVO_SPACE__7_-removebg-preview.png" alt="evospace" class="logo">
+                </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="catalogue-fixed.html"><i class="fas fa-shopping-cart mr-1"></i> Shop</a></li>
+                </ul>
+            </div>
+        </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1 data-aos="fade-down" data-aos-duration="1000">Reimagine Your Space</h1>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Visualize furniture in your home with our immersive augmented reality experience. Shop smarter, design better.</p>
+            <a href="http://127.0.0.1:5504/try/index.html"><button class="btn-custom" id="start-ar-button" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><i class="fas fa-vr-cardboard mr-2"></i>Start Your AR Experience</button></a>
+        </div>
+        <a href="#about" class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+   
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">About Us</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Transforming furniture shopping through innovation and design excellence</p>
+                
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
+                        <div class="about-content pe-lg-4">
+                            <p>At <strong>evospace</strong>, we're revolutionizing furniture shopping with cutting-edge augmented reality technology, allowing you to visualize and experience our products in your own space before making a purchase decision.</p>
+                            
+                            <p>Our vision is to create a seamless shopping journey where technology enhances reality. We believe that AR has the power to transform home decor, offering you both convenience and confidence in your buying decisions.</p>
+                            
+                            <div class="feature-box">
+                                <div class="feature-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h4>Sustainable Craftsmanship</h4>
+                                    <p>We prioritize eco-friendly materials and sustainable manufacturing processes to create furniture that's beautiful and responsible.</p>
+                                </div>
+                </div>
+                
+                            <div class="feature-box">
+                                <div class="feature-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h4>Designer Excellence</h4>
+                                    <p>Our team of expert designers creates pieces that balance aesthetics with functionality, ensuring your furniture is both stunning and practical.</p>
+                                </div>
+                </div> 
+                
+                            <div class="feature-box">
+                                <div class="feature-icon">
+                                    <i class="fas fa-vr-cardboard"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h4>Immersive Technology</h4>
+                                    <p>Our AR technology lets you see exactly how furniture will look and fit in your space, eliminating the guesswork from online shopping.</p>
+                                </div>
+            </div> 
+            
+                            <div class="mt-4 d-flex gap-3">
+                                <a href="catalogue_fixed.html" class="btn btn-custom">Explore Collection</a>
+                                <a href="#contact" class="btn btn-outline-custom">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+                        <div class="about-image position-relative">
+                            <img src="pngegg (3).png" alt="About Us" class="img-fluid rounded-lg">
+                            <div class="experience-badge">
+                                <span class="years">10</span>
+                                <span class="text">Years of Excellence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Background Decorations -->
+            <div class="decoration-circle circle-1"></div>
+            <div class="decoration-circle circle-2"></div>
+            <div class="decoration-dots dots-1"></div>
+        </section>
+        
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <h2 class="section-titles" data-aos="fade-up">Our Services</h2>
+                <p class="text-center text-white mb-5 pb-2 section-subtitle" style="color: rgba(255,255,255,0.85) !important; max-width: 700px; margin: -30px auto 60px;" data-aos="fade-up" data-aos-delay="100">
+                    Discover how we create exceptional furniture experiences through innovation and attention to detail
+                </p>
+                
+            <div class="row">
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card service-card text-center h-100">
+                        <div class="card-body">
+                                <div class="service-icon">
+                                    <i class="fas fa-vr-cardboard"></i>
+                                </div>
+                            <h5 class="card-title">Augmented Reality</h5>
+                                <p class="card-text">Experience our furniture in your own space before buying. Our AR technology lets you visualize products to scale in your environment.</p>
+                                <a href="http://127.0.0.1:5504/try/index.html" class="btn btn-custom">Try AR Now</a>
+                                <button class="btn btn-demo mt-2" onclick="addToCart()"><i class="fas fa-shopping-cart mr-2"></i>Demo Add to Cart</button>
+                                <button class="btn btn-demo mt-2" onclick="openQuickview()"><i class="fas fa-search mr-2"></i>Demo Quick View</button>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card service-card text-center h-100">
+                        <div class="card-body">
+                                <div class="service-icon">
+                                    <i class="fas fa-truck"></i>
+                        </div>
+                                <h5 class="card-title">Premium Delivery</h5>
+                                <p class="card-text">We offer white-glove delivery and assembly services, ensuring your furniture arrives safely and is set up perfectly in your home.</p>
+                                <a href="#" class="btn btn-custom">Learn More</a>
+                    </div>
+                </div>
+                    </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card service-card text-center h-100">
+                        <div class="card-body">
+                                <div class="service-icon">
+                                    <i class="fas fa-hands-helping"></i>
+                        </div>
+                                <h5 class="card-title">Expert Consultation</h5>
+                                <p class="card-text">Our design experts provide personalized consultations to help you find the perfect pieces that match your style and space.</p>
+                                <a href="#" class="btn btn-custom">Book Now</a>
+                    </div>
+                </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="500">
+                    <a href="#testimonials" class="btn btn-lg btn-outline-light">See What Our Customers Say</a>
+                </div>
+            </div>
+            
+            <!-- Background Elements -->
+            <div class="wave-shape-bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,186.7C960,192,1056,224,1152,224C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                </svg>
+            </div>
+        </section>
+
+     
+   <!-- Dive In Section -->
+<section id="dive-in">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Dive Into Our World</h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Explore the craftsmanship, technology and vision that makes evospace unique</p>
+        
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
+                <div class="dive-in-image position-relative">
+                    <img src="pngwing.com (40).png" alt="Dive In Image" class="img-fluid rounded-lg">
+                    <div class="image-overlay">
+                        <a href="#" class="play-button">
+                            <i class="fas fa-play"></i>
+                        </a>
+        </div>
+        </div>
+    </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+                <div class="dive-in-content">
+                    <h3 class="mb-4">Our Journey to Redefine Furniture Shopping</h3>
+                    <p>At <strong>Evospace</strong>, we invite you to immerse yourself in a world of innovative design and technology. Explore our wide range of furniture that combines style, comfort, and functionality.</p>
+                    <p>Our curated collection is crafted to enhance your living space while providing unparalleled comfort, with every detail carefully considered.</p>
+                    
+                    <div class="feature-row">
+                        <div class="feature-item">
+                            <div class="feature-icon-small">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h5>AR Technology</h5>
+                            <p>Visualize products in your space before buying</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon-small">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h5>Eco-Friendly</h5>
+                            <p>Sustainable materials and practices</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-row">
+                        <div class="feature-item">
+                            <div class="feature-icon-small">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <h5>Premium Quality</h5>
+                            <p>Crafted for durability and style</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon-small">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h5>Fast Delivery</h5>
+                            <p>Quick and reliable shipping options</p>
+                        </div>
+                    </div>
+                    
+                    <a href="catalogue.html" class="btn btn-custom mt-4">Explore Our Collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Elements -->
+    <div class="decoration-dots dots-2"></div>
+    <div class="decoration-circle circle-3"></div>
+</section>
+
+<style>
+    /* About Section Enhanced Styles */
+    #about {
+        background-color: #fff;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .about-content {
+        padding-right: 30px;
+    }
+    
+    .about-image {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .about-image img {
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        border-radius: var(--radius-md);
+    }
+    
+    .about-image:hover img {
+        transform: scale(1.02) translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+    
+    .experience-badge {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        box-shadow: var(--shadow-md);
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    .experience-badge .years {
+        font-size: 2.5rem;
+        line-height: 1;
+        font-weight: 700;
+    }
+    
+    .experience-badge .text {
+        font-size: 0.75rem;
+        text-align: center;
+        line-height: 1.2;
+    }
+    
+    .feature-box {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        padding: 20px;
+        border-radius: var(--radius-md);
+        transition: var(--transition);
+        background-color: #fff;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    }
+    
+    .feature-box:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        background-color: #fbfbfb;
+    }
+    
+    .feature-icon {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        box-shadow: 0 5px 15px rgba(37, 67, 54, 0.2);
+        font-size: 1.3rem;
+        transition: var(--transition);
+    }
+    
+    .feature-box:hover .feature-icon {
+        transform: rotateY(180deg);
+    }
+    
+    .feature-text {
+        flex: 1;
+    }
+    
+    .feature-text h4 {
+        color: var(--primary);
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+    
+    .feature-text p {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+        color: var(--text-light);
+    }
+    
+    .decoration-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(37, 67, 54, 0.05), rgba(37, 67, 54, 0.02));
+        z-index: 0;
+    }
+    
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+        top: -150px;
+        left: -150px;
+    }
+    
+    .circle-2 {
+        width: 400px;
+        height: 400px;
+        bottom: -200px;
+        right: -200px;
+        background: linear-gradient(135deg, rgba(183, 181, 151, 0.05), rgba(183, 181, 151, 0.02));
+    }
+    
+    .circle-3 {
+        width: 250px;
+        height: 250px;
+        top: 100px;
+        right: -100px;
+    }
+    
+    .decoration-dots {
+        position: absolute;
+        background-image: radial-gradient(var(--primary) 1px, transparent 1px);
+        background-size: 20px 20px;
+        opacity: 0.1;
+    }
+    
+    .dots-1 {
+        width: 200px;
+        height: 200px;
+        bottom: 50px;
+        left: 50px;
+    }
+    
+    .dots-2 {
+        width: 250px;
+        height: 250px;
+        top: 50px;
+        left: -100px;
+    }
+
+    /* Services Section Enhanced Styles */
+    #services {
+        background-color: var(--primary);
+        color: white;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+    
+    #services::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAwKSI+PHBhdGggZD0iTTIyLjUgMTEuNjNsMTEuOTctMTEuOTcgMi44MyAyLjgzLTExLjk3IDExLjk3ek0zOS4wNCAwbDIuODMgMi44M0wzMC42IDEzLjk2bC0yLjgzLTIuODN6Ii8+PC9nPjwvZz48L3N2Zz4=');
+        z-index: -1;
+        opacity: 0.5;
+    }
+    
+    .service-card {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        margin-bottom: 30px;
+        border: none;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--primary-light));
+        z-index: 1;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-15px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .service-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        color: var(--primary);
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .service-card:hover .service-icon {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: white;
+        transform: rotateY(360deg);
+    }
+    
+    .service-card .card-title {
+        color: var(--primary);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    .service-card .card-text {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+    
+    .service-card .btn {
+        margin-top: auto;
+        transition: var(--transition);
+    }
+    
+    .wave-shape-bottom {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+    
+    .wave-shape-bottom svg {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 80px;
+    }
+
+    /* Dive In Section Enhanced Styles */
+    #dive-in {
+        background-color: #fff;
+        position: relative;
+        overflow: hidden;
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+    
+    .dive-in-image {
+        position: relative;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+    
+    .dive-in-image:hover .image-overlay {
+        opacity: 1;
+    }
+    
+    .play-button {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+    }
+    
+    .play-button:hover {
+        background: var(--white);
+        transform: scale(1.1);
+        color: var(--primary);
+    }
+    
+    .dive-in-content h3 {
+        color: var(--primary);
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    
+    .feature-row {
+        display: flex;
+        margin-bottom: 20px;
+        gap: 20px;
+    }
+    
+    .feature-item {
+        flex: 1;
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+    }
+    
+    .feature-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-sm);
+        background: var(--white);
+    }
+    
+    .feature-icon-small {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    
+    .feature-item h5 {
+        font-size: 1rem;
+        color: var(--primary);
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+    
+    .feature-item p {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        color: var(--text-light);
+    }
+</style>
+
+    
+    
+</div>
+       <!-- Blog Section -->
+       <section id="blog">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Latest Insights</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Explore our latest articles, trends and inspiration for your living spaces</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Modern Living Room">
+                            <div class="blog-date">
+                                <span class="day">15</span>
+                                <span class="month">May</span>
+                    </div>
+                </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-user"></i> Sarah Johnson</span>
+                                <span><i class="far fa-comments"></i> 24</span>
+            </div>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Interior Design</span>
+                                <span class="blog-tag">Furniture</span>
+                    </div>
+                            <h3 class="blog-title">How to Choose the Perfect Sofa</h3>
+                            <p class="blog-excerpt">Learn about the key factors to consider when selecting a sofa that perfectly complements your space while providing the comfort you need.</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+                    </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Furniture Trends">
+                            <div class="blog-date">
+                                <span class="day">28</span>
+                                <span class="month">Apr</span>
+                </div>
+            </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-user"></i> Michael Chen</span>
+                                <span><i class="far fa-comments"></i> 18</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Trends</span>
+                                <span class="blog-tag">Design</span>
+                            </div>
+                            <h3 class="blog-title">Top Furniture Trends of 2024</h3>
+                            <p class="blog-excerpt">Discover the hottest furniture trends this year, from sustainable materials to multifunctional pieces that redefine modern living.</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="AR Shopping">
+                            <div class="blog-date">
+                                <span class="day">02</span>
+                                <span class="month">Jun</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-user"></i> Alex Rivera</span>
+                                <span><i class="far fa-comments"></i> 32</span>
+                            </div>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Technology</span>
+                                <span class="blog-tag">AR</span>
+                            </div>
+                            <h3 class="blog-title">The Benefits of AR in Furniture Shopping</h3>
+                            <p class="blog-excerpt">Explore how augmented reality is transforming the furniture industry by allowing customers to visualize products in their own space.</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="500">
+                <a href="#" class="btn btn-custom">View All Posts</a>
+            </div>
+        </div>
+        
+        <!-- Background Elements -->
+        <div class="blog-shape-top">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,202.7C672,203,768,181,864,186.7C960,192,1056,224,1152,224C1248,224,1344,192,1392,176L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Have questions or need assistance? We're here to help you find the perfect furniture solution.</p>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="contact-form">
+        <div class="row">
+            <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <input type="text" class="form-control custom-input" placeholder="Your Name" required>
+                                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                    </div>
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <input type="email" class="form-control custom-input" placeholder="Your Email" required>
+                                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group position-relative">
+                                <input type="text" class="form-control custom-input" placeholder="Subject">
+                                <i class="fas fa-bookmark input-icon"></i>
+                            </div>
+                            <div class="form-group position-relative">
+                                <textarea class="form-control custom-input" rows="5" placeholder="Your Message" required></textarea>
+                                <i class="fas fa-comment input-icon"></i>
+                            </div>
+                            <button type="submit" class="btn btn-custom submit-btn">
+                                <span>Send Message</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                </form>
+            </div>
+            </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+                    <div class="contact-info-wrapper">
+                        <div class="contact-image mb-4">
+                            <img src="pngwing.com (39).png" alt="Contact Us" class="img-fluid rounded-lg">
+        </div>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Our Location</h4>
+                                    <p>123 Design Avenue, Creative District, New York, NY 10001</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Call Us</h4>
+                                    <p>+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Email Us</h4>
+                                    <p>info@evospace.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Working Hours</h4>
+                                    <p>Mon - Fri: 9:00 AM - 6:00 PM<br>Sat: 10:00 AM - 4:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Background Decorations -->
+        <div class="decoration-dots dots-3"></div>
+        <div class="decoration-circle circle-4"></div>
+    </section>
+
+    <!-- Footer -->
+<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                    <a href="index.html" class="footer-logo">
+                        <img src="EVO_SPACE__7_-removebg-preview.png" alt="evospace">
+                    </a>
+                    <p class="footer-about">Evospace is revolutionizing furniture shopping with cutting-edge AR technology, premium products, and exceptional customer service.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="catalogue.html">Shop</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="footer-title">Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Living Room</a></li>
+                        <li><a href="#">Bedroom</a></li>
+                        <li><a href="#">Dining Room</a></li>
+                        <li><a href="#">Office</a></li>
+                        <li><a href="#">Outdoor</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="footer-title">Newsletter</h3>
+                    <p class="mb-4">Subscribe to our newsletter for the latest updates, trends, and exclusive offers.</p>
+                    <form class="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your Email Address">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-newsletter">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-4">
+                        <div class="payment-methods">
+                            <span>We accept:</span>
+                            <div class="payment-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                                <i class="fab fa-cc-paypal"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p>&copy; 2024 Evospace. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <div class="footer-bottom-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Cookie Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Shape -->
+        <div class="footer-shape">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f9f9fc" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,90.7C672,75,768,85,864,96C960,107,1056,117,1152,122.7C1248,128,1344,128,1392,128L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+            </svg>
+        </div>
+</footer>
+
+<!-- Chatbot -->
+<div class="chatbot">
+    <img src="chatbot-icon.png" alt="Chat with Us" class="chatbot-icon" onclick="toggleChat()">
+    <div class="chatbot-popup" id="chatbotPopup">
+        <div class="chatbot-header">
+            <div class="chatbot-header-content">
+                <i class="fas fa-robot mr-2"></i>
+                <h4>Chat with Us</h4>
+            </div>
+            <button class="chatbot-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chatbot-message bot">
+                <div class="chatbot-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chatbot-bubble">
+                    <p>Hello! How can I help you with your furniture needs today?</p>
+                    <span class="chat-time">Just now</span>
+                </div>
+            </div>
+            
+            <div class="chatbot-day-separator">
+                <span>Today</span>
+            </div>
+            
+            <div class="quick-replies">
+                <div class="quick-reply-title">What are you looking for?</div>
+                <div class="quick-reply-options">
+                    <button class="quick-reply-btn" onclick="addQuickReply('AR Features')">AR Features</button>
+                    <button class="quick-reply-btn" onclick="addQuickReply('Product Catalog')">Product Catalog</button>
+                    <button class="quick-reply-btn" onclick="addQuickReply('Delivery Info')">Delivery Info</button>
+                    <button class="quick-reply-btn" onclick="addQuickReply('Speak to Agent')">Speak to Agent</button>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-footer">
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbotInput" class="chatbot-input" placeholder="Type your message...">
+                <div class="input-actions">
+                    <button class="input-action-btn"><i class="fas fa-paperclip"></i></button>
+                    <button class="input-action-btn"><i class="far fa-smile"></i></button>
+                </div>
+            </div>
+            <button class="chatbot-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Footer Enhanced Styles */
+    footer {
+        background-color: var(--primary);
+        color: var(--white);
+        padding: 80px 0 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAwKSI+PHBhdGggZD0iTTIyLjUgMTEuNjNsMTEuOTctMTEuOTcgMi44MyAyLjgzLTExLjk3IDExLjk3ek0zOS4wNCAwbDIuODMgMi44M0wzMC42IDEzLjk2bC0yLjgzLTIuODN6Ii8+PC9nPjwvZz48L3N2Zz4=');
+        opacity: 0.1;
+        z-index: 0;
+    }
+    
+    .footer-shape {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        z-index: 1;
+    }
+    
+    .footer-logo {
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+    
+    .footer-logo img {
+        height: 60px;
+        transition: var(--transition);
+    }
+    
+    .footer-logo:hover img {
+        transform: scale(1.05);
+    }
+    
+    .footer-about {
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+        color: rgba(0, 0, 0, 0.8);
+        max-width: 400px;
+        line-height: 1.7;
+    }
+    
+    .footer-title {
+        color: black;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        position: relative;
+        padding-bottom: 12px;
+    }
+    
+    .footer-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--accent);
+        border-radius: 2px;
+    }
+    
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .footer-links li {
+        margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        transition: var(--transition);
+        position: relative;
+        padding-left: 15px;
+        display: inline-block;
+        font-size: 0.95rem;
+    }
+    
+    .footer-links a::before {
+        content: '\f105';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+        color: var(--accent);
+        transform: translateX(5px);
+        text-decoration: none;
+    }
+    
+    .social-icons {
+        margin-top: 20px;
+    }
+    
+    .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        margin-right: 10px;
+        transition: var(--transition);
+    }
+    
+    .social-icons a:hover {
+        background-color: var(--accent);
+        color: var(--primary);
+        transform: translateY(-3px);
+    }
+    
+    .newsletter-form {
+        margin-bottom: 20px;
+    }
+    
+    .newsletter-form .form-control {
+        border: none;
+        border-radius: var(--radius-round) 0 0 var(--radius-round);
+        padding: 12px 20px;
+        height: auto;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+    }
+    
+    .newsletter-form .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .newsletter-form .form-control:focus {
+        box-shadow: none;
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    .btn-newsletter {
+        background-color: var(--accent);
+        color: var(--primary);
+        border: none;
+        border-radius: 0 var(--radius-round) var(--radius-round) 0;
+        padding: 0 20px;
+        transition: var(--transition);
+    }
+    
+    .btn-newsletter:hover {
+        background-color: var(--accent-light);
+        transform: translateX(3px);
+    }
+    
+    .payment-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .payment-methods span {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .payment-icons {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .payment-icons i {
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.8);
+        transition: var(--transition);
+    }
+    
+    .payment-icons i:hover {
+        color: var(--white);
+        transform: translateY(-3px);
+    }
+    
+    .copyright {
+        padding-top: 30px;
+        margin-top: 60px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .footer-bottom-links {
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+    }
+    
+    .footer-bottom-links a {
+        color: rgba(255, 255, 255, 0.7);
+        transition: var(--transition);
+        font-size: 0.9rem;
+    }
+    
+    .footer-bottom-links a:hover {
+        color: var(--accent);
+        text-decoration: none;
+    }
+    
+    /* Chatbot Enhanced Styles */
+    .chatbot {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+    }
+    
+    .chatbot-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+        cursor: pointer;
+        object-fit: cover;
+    }
+    
+    .chatbot-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .chatbot-popup {
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        width: 580px; /* Increased from 450px to 580px for wider container */
+        background: white;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        height: 600px;
+        max-height: 80vh;
+        z-index: 9999;
+    }
+    
+    .chatbot-header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+    }
+    
+    .chatbot-header-content {
+        display: flex;
+        align-items: center;
+    }
+    
+    .chatbot-header h4 {
+        margin: 0 0 0 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    
+    .chatbot-close {
+        color: rgba(255, 255, 255, 0.8);
+        border: none;
+        background: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .chatbot-close:hover {
+        color: white;
+        transform: rotate(90deg);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .chatbot-body {
+        height: 100%;
+        padding: 20px;
+        background-color: #f8f9fa;
+        overflow-y: auto;
+        flex: 1;
+    }
+    
+    .chatbot-message {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .chatbot-message.bot {
+        justify-content: flex-start;
+    }
+    
+    .chatbot-message.user {
+        justify-content: flex-end;
+    }
+    
+    .chatbot-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+    
+    .chatbot-message.user .chatbot-avatar {
+        background: var(--accent);
+        margin-left: 12px;
+        margin-right: 0;
+        order: 2;
+    }
+    
+    .chatbot-bubble {
+        max-width: calc(100% - 70px);
+        padding: 15px;
+        border-radius: 18px;
+        font-size: 0.95rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        position: relative;
+        word-wrap: break-word; /* Ensures text wraps properly */
+        overflow-wrap: break-word; /* Modern browsers */
+    }
+    
+    .chatbot-bubble p {
+        margin: 0;
+        color: inherit;
+    }
+    
+    .chatbot-message.bot .chatbot-bubble {
+        background-color: white;
+        color: var(--text-dark);
+        border-bottom-left-radius: 5px;
+    }
+    
+    .chatbot-message.user .chatbot-bubble {
+        background-color: var(--primary);
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+    
+    .chat-time {
+        display: block;
+        font-size: 0.7rem;
+        color: #aaa;
+        margin-top: 5px;
+        text-align: right;
+    }
+    
+    .chatbot-day-separator {
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+    }
+    
+    .chatbot-day-separator::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+    
+    .chatbot-day-separator span {
+        background: #f8f9fa;
+        padding: 0 15px;
+        font-size: 0.8rem;
+        color: #888;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .quick-replies {
+        background: white;
+        border-radius: var(--radius-md);
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        width: 100%;
+    }
+    
+    .quick-reply-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+    }
+    
+    .quick-reply-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .quick-reply-btn {
+        background: #f1f3f5;
+        border: none;
+        border-radius: var(--radius-round);
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: var(--transition);
+        white-space: normal; /* Allow text to wrap */
+        text-align: center;
+        min-width: fit-content;
+    }
+    
+    .quick-reply-btn:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .chatbot-footer {
+        padding: 15px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        background-color: white;
+        display: flex;
+        align-items: center;
+    }
+    
+    .chatbot-input-container {
+        display: flex;
+        align-items: center;
+        background-color: #f1f3f5;
+        border-radius: var(--radius-round);
+        padding: 0 15px;
+        flex: 1;
+        margin-right: 10px;
+    }
+    
+    .chatbot-input {
+        flex: 1;
+        border: none;
+        background-color: transparent;
+        padding: 12px 0;
+        font-size: 0.95rem;
+    }
+    
+    .chatbot-input:focus {
+        outline: none;
+    }
+    
+    .input-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .input-action-btn {
+        background: none;
+        border: none;
+        color: #aaa;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .input-action-btn:hover {
+        color: var(--primary);
+    }
+    
+    .chatbot-send {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+        flex-shrink: 0;
+    }
+    
+    .chatbot-send:hover {
+        background-color: var(--primary-light);
+        transform: scale(1.05);
+    }
+    
+    .chatbot-send:active {
+        transform: scale(0.95);
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+
+    // Toggle chatbot visibility
+    function toggleChat() {
+        var popup = document.getElementById('chatbotPopup');
+        if (popup.style.display === 'none' || popup.style.display === '') {
+            popup.style.display = 'flex';
+            document.getElementById('chatbotInput').focus();
+        } else {
+            popup.style.display = 'none';
+        }
+    }
+    
+    // Send message from chatbot
+    function sendMessage() {
+        var input = document.getElementById('chatbotInput');
+        var message = input.value.trim();
+        
+        if (message !== '') {
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            // Simulate bot response after a short delay
+            setTimeout(function() {
+                var responses = [
+                    "I'd be happy to help you find the perfect furniture for your space.",
+                    "Our AR feature lets you visualize furniture in your home before buying. Would you like to try it?",
+                    "Would you like to see our latest collection of sofas and chairs?",
+                    "We offer free delivery on orders over $500. Can I help you with anything else?",
+                    "Thank you for your question. One of our design experts will contact you shortly with more details."
+                ];
+                
+                var randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage('bot', randomResponse);
+            }, 1000);
+        }
+    }
+    
+    // Add message to chat
+    function addMessage(sender, text) {
+        var chatBody = document.getElementById('chatbotBody');
+        var messageDiv = document.createElement('div');
+        messageDiv.className = 'chatbot-message ' + sender;
+        
+        var avatarDiv = document.createElement('div');
+        avatarDiv.className = 'chatbot-avatar';
+        
+        var icon = document.createElement('i');
+        icon.className = sender === 'bot' ? 'fas fa-robot' : 'fas fa-user';
+        avatarDiv.appendChild(icon);
+        
+        var bubbleDiv = document.createElement('div');
+        bubbleDiv.className = 'chatbot-bubble';
+        
+        var messageText = document.createElement('p');
+        messageText.textContent = text;
+        bubbleDiv.appendChild(messageText);
+        
+        var timeSpan = document.createElement('span');
+        timeSpan.className = 'chat-time';
+        timeSpan.textContent = 'Just now';
+        bubbleDiv.appendChild(timeSpan);
+        
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(bubbleDiv);
+        
+        chatBody.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    
+    // Handle quick reply
+    function addQuickReply(text) {
+        addMessage('user', text);
+        
+        setTimeout(function() {
+            var response;
+            switch (text) {
+                case 'AR Features':
+                    response = "Our AR technology lets you see exactly how furniture will look in your space. Just click 'Try AR' on any product page!";
+                    break;
+                case 'Product Catalog':
+                    response = "You can browse our full catalog by category. Would you like to see living room, bedroom, or dining room furniture?";
+                    break;
+                case 'Delivery Info':
+                    response = "We offer free delivery on orders over $500. Standard delivery takes 3-5 business days, and premium delivery with assembly is available for an additional fee.";
+                    break;
+                case 'Speak to Agent':
+                    response = "I'll connect you with a customer service representative shortly. Please provide your name and email address.";
+                    break;
+                default:
+                    response = "I'd be happy to help you with that. Could you provide more details?";
+            }
+            addMessage('bot', response);
+        }, 800);
+    }
+    
+    // Allow Enter key to send message
+    document.getElementById('chatbotInput').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        var navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Cart Notification -->
+<div class="cart-notification" id="cartNotification">
+    <div class="cart-notification-content">
+        <div class="notification-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="notification-text">
+            <h4>Item Added to Cart</h4>
+            <p>Your item has been added to your shopping cart</p>
+        </div>
+        <div class="notification-actions">
+            <button class="btn btn-sm btn-view-cart" onclick="viewCart()">View Cart</button>
+            <button class="btn btn-sm btn-continue" onclick="hideNotification()">Continue Shopping</button>
+        </div>
+        <button class="notification-close" onclick="hideNotification()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+<style>
+    /* Cart Notification Styles */
+    .cart-notification {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        width: 350px;
+        background: white;
+        border-radius: var(--radius-md);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 9999;
+        overflow: hidden;
+        transform: translateX(420px);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .cart-notification.show {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .cart-notification::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+    }
+    
+    .cart-notification-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .notification-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(37, 67, 54, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    
+    .notification-icon i {
+        font-size: 24px;
+        color: var(--primary);
+    }
+    
+    .notification-text {
+        margin-bottom: 15px;
+    }
+    
+    .notification-text h4 {
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
+    .notification-text p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    
+    .notification-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .btn-view-cart {
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: var(--radius-round);
+        padding: 8px 15px;
+        font-weight: 500;
+        transition: var(--transition);
+        flex: 1;
+    }
+    
+    .btn-view-cart:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 67, 54, 0.2);
+    }
+    
+    .btn-continue {
+        background: var(--gray-light);
+        color: var(--text-dark);
+        border: none;
+        border-radius: var(--radius-round);
+        padding: 8px 15px;
+        font-weight: 500;
+        transition: var(--transition);
+        flex: 1;
+    }
+    
+    .btn-continue:hover {
+        background: var(--gray-medium);
+        transform: translateY(-2px);
+    }
+    
+    .notification-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #aaa;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .notification-close:hover {
+        color: var(--text-dark);
+        background: rgba(0,0,0,0.05);
+    }
+</style>
+
+<script>
+// Add this to your existing script section or create a new one
+function showCartNotification() {
+    var notification = document.getElementById('cartNotification');
+    notification.classList.add('show');
+    
+    // Auto hide after 5 seconds
+    setTimeout(function() {
+        hideNotification();
+    }, 5000);
+}
+
+function hideNotification() {
+    var notification = document.getElementById('cartNotification');
+    notification.classList.remove('show');
+}
+
+function viewCart() {
+    // Redirect to cart page or show cart modal
+    window.location.href = 'cart.html';
+}
+
+// Demo function to show the notification (can be triggered on add to cart button click)
+function addToCart() {
+    showCartNotification();
+}
+</script>
+
+<style>
+    .btn-demo {
+        background: var(--accent);
+        color: var(--text-dark);
+        border: none;
+        border-radius: var(--radius-round);
+        padding: 8px 15px;
+        font-weight: 500;
+        transition: var(--transition);
+        font-size: 0.9rem;
+    }
+    
+    .btn-demo:hover {
+        background: var(--accent-light);
+        transform: translateY(-2px);
+        color: var(--primary-dark);
+        box-shadow: 0 5px 15px rgba(183, 181, 151, 0.4);
+    }
+</style>
+
+<!-- Product Quick View Modal -->
+<div class="product-quickview" id="productQuickview">
+    <div class="quickview-content">
+        <div class="quickview-close" onclick="closeQuickview()">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="quickview-image">
+                    <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" id="quickviewImage">
+                    <div class="image-badges">
+                        <span class="badge-new">New</span>
+                        <span class="badge-sale">Sale</span>
+                    </div>
+                </div>
+                <div class="image-thumbnails">
+                    <div class="thumbnail active" onclick="changeQuickviewImage(this, 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Thumbnail 1">
+                    </div>
+                    <div class="thumbnail" onclick="changeQuickviewImage(this, 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Thumbnail 2">
+                    </div>
+                    <div class="thumbnail" onclick="changeQuickviewImage(this, 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Thumbnail 3">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="quickview-details">
+                    <h2 class="product-title" id="quickviewTitle">Modern Accent Chair</h2>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(42 reviews)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price" id="quickviewPrice">$249.99</span>
+                        <span class="old-price">$329.99</span>
+                        <span class="discount-badge">-24%</span>
+                    </div>
+                    <div class="product-availability in-stock">
+                        <i class="fas fa-check-circle"></i> In Stock
+                    </div>
+                    <div class="product-description">
+                        <p>Elevate your living space with this contemporary accent chair featuring premium fabric upholstery and solid wood legs. Perfect for reading corners or as an elegant addition to your living room.</p>
+                    </div>
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label>Color:</label>
+                            <div class="color-options">
+                                <div class="color-option beige active" data-color="Beige"></div>
+                                <div class="color-option gray" data-color="Gray"></div>
+                                <div class="color-option blue" data-color="Blue"></div>
+                                <div class="color-option green" data-color="Green"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-quantity">
+                        <label>Quantity:</label>
+                        <div class="quantity-selector">
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <input type="number" id="quantityInput" value="1" min="1" max="10">
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-custom btn-add-to-cart" onclick="addToCartFromQuickview()">
+                            <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                        </button>
+                        <button class="btn btn-outline-custom btn-wishlist">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="btn btn-outline-custom btn-compare">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">SKU:</span>
+                            <span class="meta-value">AC-2024-089</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Category:</span>
+                            <span class="meta-value">Living Room, Chairs</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Tags:</span>
+                            <span class="meta-value">Modern, Comfortable, Accent</span>
+                        </div>
+                    </div>
+                    <div class="product-share">
+                        <span>Share:</span>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Cart Notification -->
+<div class="cart-notification-enhanced" id="cartNotificationEnhanced">
+    <div class="notification-content">
+        <div class="notification-header">
+            <h4><i class="fas fa-check-circle mr-2"></i>Added to Cart</h4>
+            <button class="notification-close" onclick="hideEnhancedNotification()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-product">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" id="notificationImage">
+            </div>
+            <div class="product-info">
+                <h5 id="notificationTitle">Modern Accent Chair</h5>
+                <div class="product-meta">
+                    <span class="product-color" id="notificationColor">Color: Beige</span>
+                    <span class="product-quantity" id="notificationQuantity">Qty: 1</span>
+                </div>
+                <div class="product-price" id="notificationPrice">$249.99</div>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Cart Subtotal:</span>
+                <span class="summary-value" id="cartSubtotal">$249.99</span>
+            </div>
+            <div class="summary-row">
+                <span>Items in Cart:</span>
+                <span class="summary-value" id="cartItems">1</span>
+            </div>
+        </div>
+        <div class="notification-actions">
+            <button class="btn btn-view-cart" onclick="viewCart()">View Cart</button>
+            <button class="btn btn-checkout" onclick="checkout()">Checkout</button>
+            <button class="btn btn-continue" onclick="hideEnhancedNotification()">Continue Shopping</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Product Quick View Styles */
+    .product-quickview {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+    }
+    
+    .quickview-content {
+        background-color: white;
+        width: 90%;
+        max-width: 1000px;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
+        padding: 30px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .quickview-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 36px;
+        height: 36px;
+        background-color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+    }
+    
+    .quickview-close:hover {
+        background-color: var(--primary);
+        color: white;
+        transform: rotate(90deg);
+    }
+    
+    .quickview-image {
+        position: relative;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        margin-bottom: 15px;
+        height: 350px;
+    }
+    
+    .quickview-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .quickview-image:hover img {
+        transform: scale(1.05);
+    }
+    
+    .image-badges {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .badge-new, .badge-sale {
+        padding: 5px 10px;
+        border-radius: var(--radius-round);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .badge-new {
+        background-color: var(--primary);
+        color: white;
+    }
+    
+    .badge-sale {
+        background-color: #e74c3c;
+        color: white;
+    }
+    
+    .image-thumbnails {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .thumbnail {
+        width: 70px;
+        height: 70px;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: var(--transition);
+    }
+    
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .thumbnail:hover {
+        transform: translateY(-3px);
+    }
+    
+    .thumbnail.active {
+        border-color: var(--primary);
+    }
+    
+    .quickview-details {
+        padding: 0 0 0 20px;
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+        color: var(--text-dark);
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+    
+    .product-rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        color: #f39c12;
+    }
+    
+    .rating-count {
+        color: var(--text-light);
+        margin-left: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .product-price {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .current-price {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    
+    .old-price {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        text-decoration: line-through;
+        margin-left: 15px;
+    }
+    
+    .discount-badge {
+        background-color: var(--primary);
+        color: white;
+        padding: 3px 8px;
+        border-radius: var(--radius-round);
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+    
+    .product-availability {
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+    }
+    
+    .in-stock {
+        color: #27ae60;
+    }
+    
+    .out-of-stock {
+        color: #e74c3c;
+    }
+    
+    .product-description {
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+    
+    .product-options {
+        margin-bottom: 25px;
+    }
+    
+    .option-group {
+        margin-bottom: 15px;
+    }
+    
+    .option-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+    
+    .color-options {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .color-option {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        transition: var(--transition);
+    }
+    
+    .color-option:hover, .color-option.active {
+        transform: scale(1.1);
+    }
+    
+    .color-option.active::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border: 2px solid var(--primary);
+        border-radius: 50%;
+    }
+    
+    .color-option.beige {
+        background-color: #E8DDCB;
+    }
+    
+    .color-option.gray {
+        background-color: #9DA3A4;
+    }
+    
+    .color-option.blue {
+        background-color: #7BA9C0;
+    }
+    
+    .color-option.green {
+        background-color: #8CAC8C;
+    }
+    
+    .product-quantity {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: var(--radius-round);
+        overflow: hidden;
+    }
+    
+    .quantity-btn {
+        width: 40px;
+        height: 40px;
+        background-color: #f8f9fa;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .quantity-btn:hover {
+        background-color: var(--gray-medium);
+    }
+    
+    #quantityInput {
+        width: 50px;
+        height: 40px;
+        border: none;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
+    .product-actions {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .btn-add-to-cart {
+        flex: 1;
+    }
+    
+    .btn-wishlist, .btn-compare {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .product-meta {
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .meta-item {
+        display: flex;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+    }
+    
+    .meta-label {
+        color: var(--text-dark);
+        font-weight: 600;
+        width: 100px;
+    }
+    
+    .meta-value {
+        color: var(--text-light);
+    }
+    
+    .product-share {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .product-share span {
+        font-size: 0.9rem;
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+    
+    .product-share a {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-dark);
+        transition: var(--transition);
+    }
+    
+    .product-share a:hover {
+        background-color: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    /* Enhanced Cart Notification Styles */
+    .cart-notification-enhanced {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        width: 400px;
+        background: white;
+        border-radius: var(--radius-md);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        z-index: 9999;
+        overflow: hidden;
+        transform: translateX(420px);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    .cart-notification-enhanced.show {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .notification-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .notification-header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .notification-header h4 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+    
+    .notification-header .notification-close {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .notification-header .notification-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+    }
+    
+    .notification-product {
+        display: flex;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .product-image {
+        width: 80px;
+        height: 80px;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        margin-right: 15px;
+    }
+    
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .product-info {
+        flex: 1;
+    }
+    
+    .product-info h5 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+        color: var(--text-dark);
+    }
+    
+    .product-meta {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-bottom: 8px;
+    }
+    
+    .product-price {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--primary);
+    }
+    
+    .cart-summary {
+        padding: 15px 20px;
+        background-color: #f9f9f9;
+    }
+    
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+    }
+    
+    .summary-value {
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+    
+    .notification-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 15px 20px 20px;
+    }
+    
+    .notification-actions .btn {
+        flex: 1 0 calc(50% - 5px);
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: var(--radius-round);
+        transition: var(--transition);
+        text-align: center;
+        cursor: pointer;
+    }
+    
+    .btn-view-cart {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+    }
+    
+    .btn-view-cart:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 67, 54, 0.2);
+    }
+    
+    .btn-checkout {
+        background-color: var(--accent);
+        color: var(--primary-dark);
+        border: none;
+    }
+    
+    .btn-checkout:hover {
+        background-color: var(--accent-light);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(183, 181, 151, 0.3);
+    }
+    
+    .btn-continue {
+        background-color: #f1f3f5;
+        color: var(--text-dark);
+        border: none;
+        flex: 1 0 100%;
+    }
+    
+    .btn-continue:hover {
+        background-color: var(--gray-medium);
+        transform: translateY(-2px);
+    }
+</style>
+
+<script>
+// Quick View Functions
+function openQuickview(productId, title, price, image) {
+    // You can use productId to fetch actual product data from your database
+    // For demo, we'll just use the passed parameters
+    document.getElementById('quickviewTitle').innerText = title || 'Modern Accent Chair';
+    document.getElementById('quickviewPrice').innerText = price || '$249.99';
+    document.getElementById('quickviewImage').src = image || 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+    
+    document.getElementById('productQuickview').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQuickview() {
+    document.getElementById('productQuickview').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function changeQuickviewImage(element, imageUrl) {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach(thumbnail => {
+        thumbnail.classList.remove('active');
+    });
+    
+    element.classList.add('active');
+    document.getElementById('quickviewImage').src = imageUrl;
+}
+
+function increaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    let value = parseInt(input.value);
+    if (value < 10) {
+        input.value = value + 1;
+    }
+}
+
+function decreaseQuantity() {
+    const input = document.getElementById('quantityInput');
+    let value = parseInt(input.value);
+    if (value > 1) {
+        input.value = value - 1;
+    }
+}
+
+// Enhanced Cart Notification Functions
+function addToCartFromQuickview() {
+    const title = document.getElementById('quickviewTitle').innerText;
+    const price = document.getElementById('quickviewPrice').innerText;
+    const image = document.getElementById('quickviewImage').src;
+    const quantity = document.getElementById('quantityInput').value;
+    
+    // Get selected color
+    const colorOption = document.querySelector('.color-option.active');
+    const color = colorOption ? colorOption.getAttribute('data-color') : 'Beige';
+    
+    // Update notification with product details
+    document.getElementById('notificationTitle').innerText = title;
+    document.getElementById('notificationPrice').innerText = price;
+    document.getElementById('notificationImage').src = image;
+    document.getElementById('notificationColor').innerText = `Color: ${color}`;
+    document.getElementById('notificationQuantity').innerText = `Qty: ${quantity}`;
+    
+    // Calculate subtotal (simple demo)
+    const priceValue = parseFloat(price.replace('$', ''));
+    const subtotal = (priceValue * parseInt(quantity)).toFixed(2);
+    document.getElementById('cartSubtotal').innerText = `$${subtotal}`;
+    document.getElementById('cartItems').innerText = quantity;
+    
+    // Close quickview and show cart notification
+    closeQuickview();
+    showEnhancedCartNotification();
+}
+
+function showEnhancedCartNotification() {
+    const notification = document.getElementById('cartNotificationEnhanced');
+    notification.classList.add('show');
+    
+    // Auto hide after 8 seconds
+    setTimeout(function() {
+        hideEnhancedNotification();
+    }, 8000);
+}
+
+function hideEnhancedNotification() {
+    const notification = document.getElementById('cartNotificationEnhanced');
+    notification.classList.remove('show');
+}
+
+function viewCart() {
+    // Redirect to cart page
+    window.location.href = 'cart.html';
+}
+
+function checkout() {
+    // Redirect to checkout page
+    window.location.href = 'checkout.html';
+}
+
+// Demo function to trigger quick view from regular product cards
+function showProductQuickview(product) {
+    // For demo purposes
+    openQuickview(
+        product.getAttribute('data-id') || '1',
+        product.getAttribute('data-title') || 'Modern Accent Chair',
+        product.getAttribute('data-price') || '$249.99',
+        product.getAttribute('data-image') || 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    );
+}
+
+// Add to cart demo function (without quickview)
+function addToCart() {
+    // For demo call, we use dummy data
+    document.getElementById('notificationTitle').innerText = 'Modern Accent Chair';
+    document.getElementById('notificationPrice').innerText = '$249.99';
+    document.getElementById('notificationImage').src = 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+    document.getElementById('notificationColor').innerText = 'Color: Beige';
+    document.getElementById('notificationQuantity').innerText = 'Qty: 1';
+    document.getElementById('cartSubtotal').innerText = '$249.99';
+    document.getElementById('cartItems').innerText = '1';
+    
+    showEnhancedCartNotification();
+}
+
+// Color option selection
+document.addEventListener('DOMContentLoaded', function() {
+    const colorOptions = document.querySelectorAll('.color-option');
+    colorOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            colorOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+</script>
+</body> 
+</html>

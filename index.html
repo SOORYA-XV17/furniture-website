@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="EvoSpace">
+  <link rel="shortcut icon" href="favicon.png">
+  <meta name="description" content="Shop for modern and stylish furniture with augmented reality at EvoSpace." />
+  <meta name="keywords" content="furniture, e-commerce, interior design, modern furniture, augmented reality" />
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  
+  <link href="index.css" rel="stylesheet">
+  <title>EvoSpace - Modern Furniture and Augmented Reality</title>
+  
+  <style>
+   
+  
+  .showM {
+      padding-top: 50px; /* Creates space below the slider */
+      background-color: #fff; /* Ensures the background is white */
+  }
+  
+
+    :root {
+      --navbar-bg-color: #254336; /* Dark Green */
+      --body-bg-color: #e9ecef;   /* Lightened for contrast */
+      --button-bg-color: #254336; /* Dark Green */
+      --footer-bg-color: #254336; /* Dark Green */
+  }
+  
+  body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--body-bg-color);
+      margin: 0;
+      padding: 0;
+  }
+  
+  .navbar {
+      background-color: var(--navbar-bg-color);
+  }
+  
+  button {
+      background-color: var(--button-bg-color);
+      color: #fff;
+  }
+  
+  .footer {
+      background-color: var(--footer-bg-color);
+  }
+  
+  .search-section,
+  .reviews-section,
+  .newsletter-section {
+      padding: 50px 0;
+  }
+  
+  .search-form input,
+  .search-form select,
+  .newsletter-form input {
+      border-radius: 30px;
+      padding: 15px;
+      border: none;
+  }
+  
+  .search-form button,
+  .newsletter-form button {
+      border-radius: 30px;
+      padding: 15px 25px;
+      transition: background-color 0.3s ease;
+  }
+  .reviews-section {
+    background-color: #B7B597; /* Beige (Static background) */
+    padding: 50px 0;
+    text-align: center;
+}
+
+.review-carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+}
+
+.review-card {
+    background-color: #DAD3BE; /* Light Beige (Default color) */
+    border-radius: 8px;
+    box-shadow: 3px 10px 18px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 10px;
+    max-width: 500px;
+    text-decoration: #fff;
+    text-decoration: solid;
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.1s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.review-card p:first-of-type {
+    font-style: italic;
+}
+
+  /* Newsletter Subscription */
+  .newsletter-section {
+      background: #6B8A7A; /* Light Green */
+      color: #fff;
+      padding: 50px 0;
+  }
+  
+  .newsletter-section h2 {
+      margin-bottom: 30px;
+      font-size: 2rem;
+  }
+  /* Style for the "OUR CATEGORIES" heading */
+.our-categories-heading {
+  color: #254336; /* Match this to the color of your slider */
+  font-weight: bold; /* Make the text bold */
+  padding: 20px 0; /* Add some padding if needed */
+  background-color: #fff; /* Optional: Ensure a white background for better contrast */
+}
+/* Example category image container */
+.category-image {
+  width: 100%;
+  height: 200px; /* Adjust height as necessary */
+  background-color: #ADD8E6; /* Default color before JS kicks in */
+  transition: background-color 0.5s ease; /* Smooth transition */
+}
+
+  .newsletter-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+  }
+  
+  .newsletter-form input {
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      padding: 15px;
+      flex: 1;
+  }
+  .categories-heading-container {
+    background-color: #fff; /* White background */
+    padding: 20px 0; /* Adjust padding as needed */
+    text-align: center; /* Center the heading text */
+}
+
+.categories-heading-container h1 {
+    color: #254336; /* Dark Green for the heading text */
+    margin: 0; /* Remove default margin */
+}
+  .newsletter-form button {
+      background-color: #254336; /* Dark Green */
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 30px;
+      transition: background-color 0.3s ease;
+  }
+  
+  .newsletter-form button:hover {
+      background-color: #DAD3BE; /* Light Beige */
+  }
+  
+  /* Footer */
+  .footer-section {
+      background: #254336; /* Dark Green */
+      color: #DAD3BE; /* Light Beige */
+      padding: 40px 0;
+      text-align: center;
+  }
+  
+  .footer-links {
+      margin-bottom: 20px;
+  }
+  
+  .footer-links a {
+      color: #DAD3BE; /* Light Beige */
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+  }
+  
+  .footer-links a:hover {
+      text-decoration: underline;
+  }
+  
+  .footer-section p {
+      margin: 0;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .logo {
+    height: 105px; /* Adjust the height of the logo */
+    width: auto;  /* Maintain the aspect ratio */
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #254336;
+    font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #254336; /* Background color */
+  font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.custom-nav {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+ 
+  
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.5s;
+  display: flex;
+  align-items: center;
+}
+
+.custom-nav input:checked ~ .menu {
+  width: 450px; /* Width when expanded */
+}
+
+.menu li {
+  list-style: none;
+  margin: 0 10px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #666;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: color 0.5s;
+}
+
+.menu li a:hover {
+  color: #161919; /* Hover color */
+}
+
+.custom-nav input {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  opacity: 0; /* Hide checkbox */
+}
+
+/* Hamburger lines */
+.custom-nav span.line {
+  position: absolute;
+  left: 30px;
+  width: 30px;
+  height: 4px;
+  background-color: #666;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Top Line (Initial state) */
+.custom-nav span.line:nth-child(2) {
+  transform: translateY(-8px);  /* Position the first line */
+}
+
+/* Bottom Line (Initial state) */
+.custom-nav span.line:nth-child(3) {
+  transform: translateY(8px);  /* Position the second line below the first */
+}
+
+/* On click - rotate the lines to form an X */
+.custom-nav input:checked ~ .line:nth-child(2) {
+  transform: translateY(0) rotate(-45deg); /* Move down and rotate */
+}
+
+.custom-nav input:checked ~ .line:nth-child(3) {
+  transform: translateY(0) rotate(45deg);/* Move up and rotate */
+}
+
+/* Change the line color when checked */
+.custom-nav input:checked ~ .line {
+  background-color: #e8a0bb; /* Line color when checked */
+}
+/* General positioning for user and search bar on the right */
+/* General styling for the search bar and user icon */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-icon {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.user-icon:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff; /* Background color of dropdown */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 16px;
+  color: #333; /* Text color */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color:#254336; /* Hover background */
+  color: white; /* Hover text color */
+}
+
+
+/* Customer Reviews Section */
+  
+  </style>
+
+</head>
+
+<body>
+  <!-- Chat Button -->
+<div class="chat-button" onclick="toggleChat()">
+  <img src="chat.png" alt="Chat Icon" /> <!-- Replace with the path to your chat icon image -->
+</div>
+
+<!-- Chat Box -->
+<div id="chatBox" class="chat-box">
+  <div class="chat-header">
+      <span>Chat with Us</span>
+      <button onclick="toggleChat()">X</button>
+  </div>
+  <div class="chat-body">
+      <p>Welcome! How can we help you today?</p>
+      <!-- Later you can add your chatbot UI here -->
+  </div>
+</div>
+<nav class="navbar">
+  <a href="index.html" style="margin-right: 1390px; position: fixed;"></a>
+      <img src="EVO_SPACE__7_-removebg-preview.png" alt="Website Logo" class="logo" style="margin-right: 1390px; position: absolute;">
+  </a>
+  <div class="custom-nav">
+    <input type="checkbox" id="menu-toggle">
+    <span class="line"></span>
+    <span class="line"></span>
+
+    <ul class="menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="http://127.0.0.1:5504/catalogue-fixed.html">Shop</a></li>
+      <li><a href="about.html#blog">Blog</a></li>
+      <li><a href="about.html#contact">Contact Us</a></li>
+      <li><a class="nav-link" href="cart-page.html"><img src="sooping.png" alt="Cart" style="width: 25px; height: auto;"></a></li>
+      
+      <!-- User Icon with Dropdown -->
+     
+    </ul>
+  </div>
+  <div>  <li class="user-dropdown">
+    <a href="#" class="user-icon" id="user-icon">
+      <img src="usern.jpg" alt="User Icon" style="width: 40px; height: auto;">
+    </a>
+    <ul class="dropdown-menu" id="dropdown-menu">
+      <li><a href="#profile">My Profile</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#preferences">Preferences</a></li>
+      <li><a href="#logout">Logout</a></li>
+    </ul>
+  </li></div>
+</nav>
+
+  <header class="hero">
+    
+    <div class="slider">
+    
+
+      <div class="slide slide-1" >
+        <img src="pngegg (1).png" alt="Furniture 1" class="furniture-image" style="height:auto;width:40%">
+        <div class="hero-text">
+          <h1>Transform Your Space</h1>
+          <p>Discover our modern furniture collections with AR features <br>designed to enhance your home or office experience.</p>
+          <a href="try\index.html"><button class="blob-btn">
+            Explore AR
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob"></span>
+                <span class="blob-btn__blob"></span>
+                <span class="blob-btn__blob"></span>
+              </span>
+            </span>
+            </button> </a>
+          <a href="http://127.0.0.1:5504/catalogue-fixed.html"><button class="blob-btn">
+            Shop Now!
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob"></span>
+                <span class="blob-btn__blob"></span>
+                <span class="blob-btn__blob"></span>
+              </span>
+            </span>
+          </button></a>
+        </div>
+      </div>
+
+      
+      <div class="slide slide-2">
+        <img src="pngegg (4).png" alt="Furniture 2" class="furniture-image image-small">
+        <div class="hero-text">
+          <h1>Modern Designs</h1>
+          <p>Explore a variety of contemporary furniture <br>styles that fit any space.</p>
+          <a href="try\index.html"><button class="blob-btn">
+            Explore AR
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob1"></span>
+                <span class="blob-btn__blob1"></span>
+                <span class="blob-btn__blob1"></span>
+              </span>
+            </span>
+            </button></a>
+            <a href="http://127.0.0.1:5504/catalogue-fixed.html"><button class="blob-btn">
+            Shop Now!
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob1"></span>
+                <span class="blob-btn__blob1"></span>
+                <span class="blob-btn__blob1"></span>
+              </span>
+            </span>
+          </button></a>
+        </div>
+      </div>
+
+     
+      <div class="slide slide-3">
+        <img src="pngegg (6).png" alt="Furniture 3" class="furniture-image image-larger" >
+        <img src="pngwing.com.png" alt="Furniture 3" class="furniture-image" style="margin-right: 450px;margin-bottom:100px;width:32%;">
+        <div class="hero-text">
+          <h1>Innovative Solutions</h1>
+          <p>Experience furniture with integrated augmented reality<br> features for a unique shopping experience.</p>
+          <a href="try\index.html"><button class="blob-btn">
+            Explore AR
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob2"></span>
+                <span class="blob-btn__blob2"></span>
+                <span class="blob-btn__blob2"></span>
+              </span>
+            </span>
+          </button></a>
+          <a href="http://127.0.0.1:5504/catalogue-fixed.html"><button class="blob-btn">
+            Shop Now!
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob2"></span>
+                <span class="blob-btn__blob2"></span>
+                <span class="blob-btn__blob2"></span>
+              </span>
+            </span>
+          </button></a>
+        </div>
+      </div>
+
+      
+      <div class="slide slide-4">
+        <img src="pngwing.com (2).png" alt="Furniture 4" class="furniture-image" style="width: 45%; margin-right:100px;bottom:10px">
+        
+        <div class="hero-text">
+          <h1>Elegant Living</h1>
+          <p>Transform your living spaces with our <br>elegant furniture options.</p>
+          
+          <a href="try\index.html"><button class="blob-btn">
+            Explore AR
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob3"></span>
+                <span class="blob-btn__blob3"></span>
+                <span class="blob-btn__blob3"></span>
+              </span>
+            </span>
+          </button></a>
+          <a href="http://127.0.0.1:5504/catalogue-fixed.html"><button class="blob-btn">
+            Shop Now!
+            <span class="blob-btn__inner">
+              <span class="blob-btn__blobs">
+                <span class="blob-btn__blob3"></span>
+                <span class="blob-btn__blob3"></span>
+                <span class="blob-btn__blob3"></span>
+              </span>
+            </span>
+          </button></a>
+          
+        </div>
+      </div>
+     
+    </div>
+    <button class="arrow left">&#10094;</button>
+    <button class="arrow right">&#10095;</button>
+    
+  </header>
+  
+
+  
+  <div style="text-align: center;">
+    <h1 id="ourCategoriesHeading" class="our-categories-heading"><strong>OUR CATEGORIES</strong></h1>
+  </div>
+  
+</div>
+
+ <section class="showM">
+  
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#living-room'">
+      <img src="pngwing.com (8).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Living Room Furniture</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#bedroom'">
+      <img src="pngwing.com (11).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Bedroom Furniture</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#kitchen'">
+      <img src="pngwing.com (12).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Kitchen & Dining Furniture</h4>
+      </div>
+  </div>
+</section>
+<section class="showM">
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#office'">
+    
+      <img src="pngwing.com (16).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Office Furniture</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#decor'">
+      <img src="pngwing.com (22).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Décor</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#kids'">
+      <img src="pngwing.com (25).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Kids' Furniture</h4>
+      </div>
+  </div>
+</section>
+<section class="showM">
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#vintage'">
+      <img src="Antique-Furniture-Transparent-PNG.png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Vintage & Antique Furniture</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#home-decor'">
+      <img src="pngwing.com (4).png" alt="" style="width: 100%;margin-right: 500px">
+      <div class="info">
+          <h4>Home Décor & Accessories</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#entryway'">
+      <img src="pngwing.com (36).png" alt="" style="width: 90%;margin-right: 500px">
+      <div class="info">
+          <h4>Entryway Furniture</h4>
+      </div>
+  </div>
+</section>
+<section class="showM">
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#luxury'">
+      <img src="lux.png" alt="" style="width: 85%;margin-right: 500px">
+      <div class="info">
+          <h4>Luxury Furniture</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#space-saving'">
+      <img src="soo.png" alt="" style="width: 95%;margin-right: 500px">
+      <div class="info">
+          <h4>Space-Saving Furniture</h4>
+      </div>
+  </div>
+  <div onclick="location.href='http://127.0.0.1:5504/catalogue-fixed.html#bathroom'">
+      <img src="pngwing.com (38).png" alt="" style="width: 95%;margin-right: 500px">
+      <div class="info">
+          <h4>Bathroom Furniture</h4>
+      </div>
+  </div>
+</section>
+
+<section class="search-section" style="text-align: center">
+  <div class="container">
+      <h2 class="text-center" style="color: #fff;"><strong>Find Your Perfect Product</strong></h2>
+      <br>
+      <form class="d-flex search-form">
+          <input type="search" placeholder="Search for products..." aria-label="Search">
+          <select>
+              <option selected>Filter by Category</option>
+              <option value="living-room">Living Room</option>
+              <option value="bedroom">Bedroom</option>
+              <option value="office">Office</option>
+          </select>
+          <button type="submit">Search</button>
+      </form>
+  </div>
+</section>
+
+
+<!-- Customer Reviews Section -->
+<section class="reviews-section" style="text-align: center;background-color:white">
+  <div class="container">
+      <h2 class="text-center">Customer Reviews</h2>
+      <div class="review-carousel">
+          <div class="review-card">
+              <p>"This furniture is amazing! The AR feature helped me visualize it perfectly in my room."</p>
+              <p>- Jane Doe</p>
+          </div>
+          <div class="review-card">
+              <p>"Great service and high-quality products. Highly recommend!"</p>
+              <p>- John Smith</p>
+          </div>
+          <div class="review-card">
+            <p>"Great service and high-quality products. Highly recommend!"</p>
+            <p>- John Smith</p>
+        </div>
+          <!-- Add more reviews as needed -->
+      </div>
+  </div>
+</section>
+
+
+
+<!-- Newsletter Subscription -->
+ <center>
+<section class="search-section">
+  <div class="container">
+      <h2 class="text-center" style="color: #fff;">Stay Updated</h2>
+      <br>
+      <br>
+      <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit">Subscribe</button>
+      </form>
+  </div>
+</section>
+</center>
+<!-- Footer -->
+ <center>
+<footer class="footer-section">
+  <div class="container text-center">
+      <div class="footer-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="faq.html">FAQ</a>
+          <a href="returns.html">Returns</a>
+      </div>
+      <p>&copy; 2024 EvoSpace. All rights reserved.</p>
+  </div>
+  </center>
+</footer>
+
+
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="index.js"></script>
+  
+  <script>
+    function toggleChat() {
+        var chatBox = document.getElementById('chatBox');
+        if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+            chatBox.style.display = 'flex';
+        } else {
+            chatBox.style.display = 'none';
+        }
+    }
+    function updateColors() {
+      const color = slideColors[currentIndex];
+      navbar.style.backgroundColor = color;
+      body.style.backgroundColor = color; 
+      button.style.backgroundColor = color;
+      button.style.color = '#fff';
+      footer.style.backgroundColor = color;
+  
+      // Update "OUR CATEGORIES" text color
+      const ourCategoriesHeading = document.getElementById('ourCategoriesHeading');
+      ourCategoriesHeading.style.color = color;  // Change the color of the heading
+  }
+  
+    </script>
+    <script>
+      // User Icon Dropdown Toggle
+      document.addEventListener('DOMContentLoaded', function () {
+        const userIcon = document.getElementById('user-icon');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+      
+        userIcon.addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent default anchor click behavior
+          dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+      
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function (event) {
+          if (!userIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+          }
+        });
+      });
+      
+ 
+  </script>
+   
+  </body>
+  </html>
+  

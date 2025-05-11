@@ -1,0 +1,100 @@
+/* Importing Bootstrap */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+/* Global Styles */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #254336;
+    color: #fff;
+    padding: 20px;
+}
+
+header .navbar-nav .nav-link, footer a {
+    color: #DAD3BE;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header .navbar-nav .nav-link:hover, footer a:hover {
+    color: #B7B597;
+}
+
+h1, h2 {
+    font-family: 'Georgia', serif;
+    color: #254336;
+    margin-bottom: 20px;
+}
+
+p, label, input, textarea {
+    font-size: 16px;
+    color: #6B8A7A;
+}
+
+.container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.contact-form, .services-section, .about-section, .blog-section {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form input, .contact-form textarea, .services-section input, .services-section textarea, .about-section input, .about-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    background-color: #254336;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #6B8A7A;
+}
+
+footer {
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.blog-section .blog-post {
+    margin-bottom: 30px;
+    padding: 15px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.blog-section .blog-post:last-child {
+    border-bottom: none;
+}
+
+.blog-section h2 {
+    font-size: 24px;
+    color: #254336;
+}
+
+.blog-section p {
+    font-size: 16px;
+    color: #6B8A7A;
+}

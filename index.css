@@ -1,0 +1,720 @@
+/* General styles */
+
+
+
+/* Middle section adjustment for alignment */
+.header-middle-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 20px 20px; /* Added padding to compensate for the fixed navbar */
+    background-color: #f8f9fa; /* Background color for the middle section */
+    width: 100%;
+}
+
+.header-middle-section .site-logo {
+    margin-right: auto;
+}
+
+.header-middle-section .menu-options {
+    display: flex;
+    gap: 20px;
+}
+
+.header-middle-section .menu-options a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Slider styles */
+.hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    height: 550px;
+    width: 100%;
+    padding-top: 56px; /* To compensate for the fixed navbar height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left; /* Align text to the left */
+    height: 100%;
+    padding: 20px; /* Add padding to ensure text is not too close to the edge */
+    position: relative;
+    background-size: cover; 
+   /* Ensure the background color covers the slide */
+}
+
+/* Position text at the bottom left */
+.hero-text {
+    position: absolute;
+    bottom: 20px; /* Distance from the bottom */
+    left: 20px; /* Distance from the left */
+    color: #fff;
+    text-align: left; /* Align text to the left */
+}
+
+.hero-text h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+.hero-text p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+/* Explore More button */
+.explore-more-btn {
+    text-decoration: none;
+}
+
+.explore-more-btn button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.explore-more-btn button:hover {
+    background-color: #0056b3; /* Darker shade of primary color */
+}
+
+/* Furniture image styles */
+.furniture-image {
+    position: absolute;
+    bottom: 0; /* Align to the bottom of the slide */
+    right: 0; /* Align to the right side of the slide */
+    max-width: 100%; /* Ensure the image does not overflow */
+    max-height: 100%; /* Ensure the image does not overflow */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    z-index: 1; /* Ensure the image is behind the text */
+}
+
+/* Specific colors for each slide */
+.slide-1 {
+    background-color: #254336; /* Dark Green */
+}
+
+.slide-2 {
+    background-color: #6B8A7A; /* Light Green */
+}
+
+.slide-3 {
+    background-color: #B7B597; /* Beige */
+}
+
+.slide-4 {
+    background-color: #DAD3BE; /* Light Beige */
+}
+
+/* Arrow styles */
+.arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2f2f2f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.arrow:hover {
+    background-color: #314d43;
+}
+
+.arrow.left {
+    left: 20px;
+}
+
+.arrow.right {
+    right: 20px;
+}
+.image-small {
+    width: 60%; /* Adjust this percentage as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+/* Adjust the size of the image with the class 'image-large' */
+.image-large {
+    width: 50%; /* Adjust this percentage as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+.image-larger {
+
+    width: 35%; /* Adjust this percentage as needed */
+    height: auto;
+}
+/* Hero text shadow effect */
+.hero-text h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Adds shadow for depth effect */
+}
+
+.hero-text p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Adds shadow for depth effect */
+}
+
+
+/* Additional styles for responsiveness and alignment */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .header-middle-section {
+        padding: 70px 10px 10px; /* Adjust for fixed navbar height on smaller screens */
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-middle-section .menu-options {
+        margin-top: 15px;
+    }
+
+    .arrow {
+        width: 30px;
+        height: 30px;
+    }
+   
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.buttons {
+  margin-top: 50px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.blob-btn {
+  z-index: 1;
+  position: relative;
+  padding: 20px 46px;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: color 0.5s;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.blob-btn:before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid white;
+  border-radius: 30px;
+}
+
+.blob-btn:after {
+  content: "";
+  z-index: -2;
+  position: absolute;
+  left: 3px; /* 2px * 1.5 */
+  top: 3px; /* 2px * 1.5 */
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s 0.2s;
+  border-radius: 30px;
+}
+
+.blob-btn:hover {
+  color: #FFFFFF;
+}
+
+.blob-btn:hover:after {
+  transition: all 0.3s;
+  left: 0;
+  top: 0;
+  border-radius: 30px;
+}
+
+.blob-btn__inner {
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: #ffffff;
+}
+
+.blob-btn__blobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url('#goo');
+}
+
+.blob-btn__blob {
+  position: absolute;
+  top: 2px; /* borderW */
+  width: calc(100%/3); /* 4 blobs */
+  height: 100%;
+  background: #254336;
+  border-radius: 100%;
+  transform: translate3d(0, 150%, 0) scale(1.7);
+  transition: transform 0.45s;
+}
+
+.blob-btn__blob1 {
+    position: absolute;
+    top: 2px; /* borderW */
+    width: calc(100%/3); /* 4 blobs */
+    height: 100%;
+    background: #6B8A7A;
+    border-radius: 100%;
+    transform: translate3d(0, 150%, 0) scale(1.7);
+    transition: transform 0.45s;
+  }
+  .blob-btn__blob1:nth-child(1) {
+    left: 0%;
+    transition-delay: 0s;
+  }
+  
+  .blob-btn__blob1:nth-child(2) {
+    left: 30%;
+    transition-delay: 0.08s;
+  }
+  
+  .blob-btn__blob1:nth-child(3) {
+    left: 60%;
+    transition-delay: 0.16s;
+  }
+  
+  .blob-btn__blob1:nth-child(4) {
+    left: 90%;
+    transition-delay: 0.24s;
+  }
+  
+  .blob-btn:hover .blob-btn__blob1 {
+    transform: translateZ(0) scale(1.7);
+  }
+  
+.blob-btn__blob:nth-child(1) {
+  left: 0%;
+  transition-delay: 0s;
+}
+
+.blob-btn__blob:nth-child(2) {
+  left: 30%;
+  transition-delay: 0.08s;
+}
+
+.blob-btn__blob:nth-child(3) {
+  left: 60%;
+  transition-delay: 0.16s;
+}
+
+.blob-btn__blob:nth-child(4) {
+  left: 90%;
+  transition-delay: 0.24s;
+}
+
+.blob-btn:hover .blob-btn__blob {
+  transform: translateZ(0) scale(1.7);
+}
+.blob-btn__blob2 {
+    position: absolute;
+    top: 2px; /* borderW */
+    width: calc(100%/3); /* 4 blobs */
+    height: 100%;
+    background: #B7B597;
+    border-radius: 100%;
+    transform: translate3d(0, 150%, 0) scale(1.7);
+    transition: transform 0.45s;
+  }
+  .blob-btn__blob2:nth-child(1) {
+    left: 0%;
+    transition-delay: 0s;
+  }
+  
+  .blob-btn__blob2:nth-child(2) {
+    left: 30%;
+    transition-delay: 0.08s;
+  }
+  
+  .blob-btn__blob2:nth-child(3) {
+    left: 60%;
+    transition-delay: 0.16s;
+  }
+  
+  .blob-btn__blob2:nth-child(4) {
+    left: 90%;
+    transition-delay: 0.24s;
+  }
+  
+  .blob-btn:hover .blob-btn__blob2 {
+    transform: translateZ(0) scale(1.7);
+  }
+  .blob-btn__blob3 {
+    position: absolute;
+    top: 2px; /* borderW */
+    width: calc(100%/3); /* 4 blobs */
+    height: 100%;
+    background: #DAD3BE;
+    border-radius: 100%;
+    transform: translate3d(0, 150%, 0) scale(1.7);
+    transition: transform 0.45s;
+  }
+  .blob-btn__blob3:nth-child(1) {
+    left: 0%;
+    transition-delay: 0s;
+  }
+  
+  .blob-btn__blob3:nth-child(2) {
+    left: 30%;
+    transition-delay: 0.08s;
+  }
+  
+  .blob-btn__blob3:nth-child(3) {
+    left: 60%;
+    transition-delay: 0.16s;
+  }
+  
+  .blob-btn__blob3:nth-child(4) {
+    left: 90%;
+    transition-delay: 0.24s;
+  }
+  
+  .blob-btn:hover .blob-btn__blob3 {
+    transform: translateZ(0) scale(1.7);
+  }
+
+
+  .products .product-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chat-button {
+  position: fixed;
+  right: 20px; /* Move to the right side */
+  bottom: 20px;
+  background-color: #007bff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  z-index: 1000;
+}
+
+.chat-button img {
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+}
+
+/* Style for Chat Box */
+.chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  width: 300px;
+  height: 400px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.chat-header {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-body {
+  padding: 15px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chat-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+#product-showcase {
+  background-color: #f9f9f9;
+  padding: 40px 0;
+}
+
+model-viewer {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* General Parallax Effect */
+/* General Styles */
+
+
+/* General Styles */
+.showM{
+  width: 100%;
+  height: 15.5rem;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.showM>div{
+  cursor: pointer;
+  position: relative;
+  width: 15%;
+  height: 50%;
+  border-radius: 200px;
+  background-color: rgba(147, 188, 225, 0.412);
+}
+.showM>div>img{
+  position: absolute;
+  width: 70%;
+  height: 100%;
+  margin: -27% 17%;
+  transition: 0.5s;
+}
+.showM>div:hover img{
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  margin: -27% 10%;
+}
+.showM>div>.info{
+  text-align: center;
+  position: absolute;
+  right: 10px;
+  left: 10px;
+  bottom: 0%;
+  height: 55px;
+}
+
+
+
+/* Style for the text in the 'info' section */
+.info h4 {
+  font-size: 18px;
+  font-weight: 700; /* Bolder for a more prominent look */
+  color: #34495e; /* Dark navy blue for a strong, professional feel */
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25); /* Slightly stronger shadow for emphasis */
+  padding: 5px;
+  border-radius: 6px; /* Softer corners for a premium feel */
+  letter-spacing: 1px; /* More letter spacing for clarity */
+  transition: color 0.4s ease-in-out, transform 0.4s ease-in-out; /* Smooth hover transitions */
+  background-color: rgba(255, 255, 255, 0.1); /* Light translucent background for subtle separation */
+}
+
+.info h4:hover {
+  color: #2b3444; /* Gold color on hover for a luxurious, classy effect */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); /* Enhanced shadow to make hover state more dynamic */
+  transform: scale(1.08); /* A slightly larger zoom effect for interaction */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .showM {
+        padding: 30px;
+    }
+    
+    .showM img {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+    
+    .hero-text {
+        padding: 0 20px;
+    }
+    
+    .furniture-image {
+        width: 60% !important;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .navbar {
+        padding: 10px;
+    }
+    
+    .logo {
+        height: 80px;
+    }
+    
+    .menu {
+        width: 100%;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        background: #254336;
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .menu li {
+        margin: 10px 0;
+    }
+    
+    .menu li a {
+        color: #fff;
+        font-size: 18px;
+    }
+    
+    .custom-nav input:checked ~ .menu {
+        width: 100%;
+    }
+    
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-text p {
+        font-size: 1rem;
+    }
+    
+    .blob-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .showM {
+        padding: 20px;
+    }
+    
+    .showM div {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .furniture-image {
+        width: 80% !important;
+    }
+    
+    .hero-text {
+        text-align: center;
+    }
+    
+    .search-section,
+    .reviews-section,
+    .newsletter-section {
+        padding: 30px 0;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .logo {
+        height: 60px;
+    }
+    
+    .hero-text h1 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+    
+    .blob-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .review-card {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-links a {
+        margin: 5px 0;
+    }
+}
+
+/* Chat Button Responsive */
+@media screen and (max-width: 768px) {
+    .chat-button {
+        width: 50px;
+        height: 50px;
+        right: 20px;
+        bottom: 20px;
+    }
+    
+    .chat-box {
+        width: 90%;
+        max-width: none;
+        right: 5%;
+    }
+}

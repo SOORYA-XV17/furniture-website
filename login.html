@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>* {
+        box-sizing: border-box;
+        position: relative;
+        padding: 0;
+        margin: 0;
+      }
+      
+      html,
+      body {
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      
+      body {
+        min-height: 100vh;
+        background: #fff;
+        color: #333;
+        line-height: 1.5;
+        font-family: "Roboto", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+      }
+      
+      input,
+      button {
+        border: none;
+        outline: none;
+        background: none;
+        font-family: inherit;
+      }
+      
+      .demo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        min-height: 100vh;
+        padding: 20px;
+        background: #ededed;
+        border: 1px solid #ccc;
+      }
+      
+      .animated-border {
+        --bw: var(--border-width, 3px);
+        z-index: 2;
+        position: absolute;
+        inset: 0;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--bw) var(--bw), var(--bw) calc(100% - var(--bw)), calc(100% - var(--bw)) calc(100% - var(--bw)), calc(100% - var(--bw)) var(--bw), var(--bw) var(--bw));
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--bw) var(--bw), var(--bw) calc(100% - var(--bw)), calc(100% - var(--bw)) calc(100% - var(--bw)), calc(100% - var(--bw)) var(--bw), var(--bw) var(--bw));
+      }
+      .animated-border:before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 150%;
+        padding-bottom: 150%;
+        transform: translate(-50%, -50%);
+        background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
+        -webkit-animation: rotateBtnBg 2s linear infinite;
+                animation: rotateBtnBg 2s linear infinite;
+      }
+      
+      .local-container {
+        width: 800px;
+        max-width: 100%;
+      }
+      
+      .demo {
+        --switcher-width: 260px;
+        --arrow-offset: 30px;
+        --anim-time: 1.2s;
+        --transition-transform: transform var(--anim-time) ease-in-out;
+        --transition-opacity: opacity 0s calc(var(--anim-time) / 2);
+        --btn-height: 36px;
+        height: 550px;
+        filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+      }
+      .demo button {
+        display: block;
+        margin: 0 auto;
+        height: var(--btn-height);
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .demo__inner {
+        --demoX1: 0;
+        --demoX2: calc(100% - var(--arrow-offset));
+        --demoX3: 100%;
+        --demoX4: calc(100% - var(--arrow-offset));
+        --demoX5: 0;
+        --demoX6: 0;
+        overflow: hidden;
+        height: 100%;
+        padding-right: var(--switcher-width);
+        background: #fff;
+        transition: -webkit-clip-path var(--anim-time) ease-in-out;
+        transition: clip-path var(--anim-time) ease-in-out;
+        transition: clip-path var(--anim-time) ease-in-out, -webkit-clip-path var(--anim-time) ease-in-out;
+        will-change: clip-path;
+        -webkit-clip-path: polygon(var(--demoX1) 0, var(--demoX2) 0, var(--demoX3) 50%, var(--demoX4) 100%, var(--demoX5) 100%, var(--demoX6) 50%);
+                clip-path: polygon(var(--demoX1) 0, var(--demoX2) 0, var(--demoX3) 50%, var(--demoX4) 100%, var(--demoX5) 100%, var(--demoX6) 50%);
+      }
+      .demo.s--switched .demo__inner {
+        --demoX1: var(--arrow-offset);
+        --demoX2: 100%;
+        --demoX3: 100%;
+        --demoX4: 100%;
+        --demoX5: var(--arrow-offset);
+        --demoX6: 0;
+      }
+      .demo__forms {
+        height: 100%;
+        transition: var(--transition-transform);
+        will-change: transform;
+      }
+      .demo.s--switched .demo__forms {
+        transform: translateX(var(--switcher-width));
+      }
+      .demo__form {
+        position: absolute;
+        inset: 0;
+        transition: var(--transition-opacity);
+      }
+      .demo.s--switched .demo__form:first-child {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .demo__form:last-child {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .demo.s--switched .demo__form:last-child {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .demo__form-content {
+        width: var(--switcher-width);
+        margin: 0 auto;
+      }
+      .demo__switcher {
+        --x1: calc(100% - var(--switcher-width));
+        --x2: calc(100% - var(--arrow-offset));
+        --x3: 100%;
+        --x4: calc(100% - var(--arrow-offset));
+        --x5: calc(100% - var(--switcher-width));
+        --x6: calc(100% - var(--switcher-width) + var(--arrow-offset));
+        z-index: 2;
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg");
+        background-size: cover;
+        background-position: center center;
+        -webkit-clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x3) 50%, var(--x4) 100%, var(--x5) 100%, var(--x6) 50%);
+                clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x3) 50%, var(--x4) 100%, var(--x5) 100%, var(--x6) 50%);
+        transition: -webkit-clip-path var(--anim-time) ease-in-out;
+        transition: clip-path var(--anim-time) ease-in-out;
+        transition: clip-path var(--anim-time) ease-in-out, -webkit-clip-path var(--anim-time) ease-in-out;
+        will-change: clip-path;
+      }
+      .demo.s--switched .demo__switcher {
+        --x1: var(--arrow-offset);
+        --x2: var(--switcher-width);
+        --x3: calc(var(--switcher-width) - var(--arrow-offset));
+        --x4: var(--switcher-width);
+        --x5: var(--arrow-offset);
+        --x6: 0;
+      }
+      .demo__switcher:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+      }
+      .demo__switcher-inner {
+        height: 100%;
+        transition: var(--transition-transform);
+        will-change: transform;
+      }
+      .demo.s--switched .demo__switcher-inner {
+        transform: translateX(calc((100% - var(--switcher-width)) * -1));
+      }
+      .demo__switcher-content {
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        -moz-column-gap: 20px;
+             column-gap: 20px;
+        width: var(--switcher-width);
+        height: 100%;
+      }
+      .demo__switcher-text {
+        display: flex;
+        flex-wrap: nowrap;
+        height: 140px;
+        color: #fff;
+        transition: var(--transition-transform);
+        will-change: transform;
+      }
+      .demo.s--switched .demo__switcher-text {
+        transform: translateX(-100%);
+      }
+      .demo__switcher-text > div {
+        width: 100%;
+        flex-shrink: 0;
+        text-align: center;
+      }
+      .demo__switcher-text > div:first-child {
+        padding-left: calc(var(--arrow-offset) + 10px);
+        padding-right: calc(var(--arrow-offset) - 10px);
+      }
+      .demo__switcher-text > div:last-child {
+        padding-left: calc(var(--arrow-offset) - 10px);
+        padding-right: calc(var(--arrow-offset) + 10px);
+      }
+      .demo__switcher-text > div h3 {
+        margin-bottom: 20px;
+      }
+      .demo__switcher-text > div p {
+        font-size: 14px;
+      }
+      .demo__switcher-btn {
+        --btn-width: 100px;
+        --border-width: 3px;
+        overflow: hidden;
+        width: var(--btn-width);
+      }
+      @-webkit-keyframes rotateBtnBg {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      @keyframes rotateBtnBg {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      .demo__switcher-btn-inner {
+        z-index: 1;
+        position: absolute;
+        inset: 0;
+        font-weight: 500;
+      }
+      .demo__switcher-btn-inner span {
+        display: block;
+        height: 100%;
+        line-height: var(--btn-height);
+        text-align: center;
+        text-transform: uppercase;
+        transition: var(--transition-transform);
+        will-change: transform;
+      }
+      .demo.s--switched .demo__switcher-btn-inner span {
+        transform: translateY(-100%);
+      }
+      
+      .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 50px 0;
+        row-gap: 20px;
+        text-align: center;
+        transition: transform var(--anim-time, 1.2s);
+        will-change: transform;
+      }
+      .form__heading {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .form__field {
+        width: 100%;
+      }
+      .form__field-label {
+        font-size: 12px;
+        color: #cfcfcf;
+        text-transform: uppercase;
+      }
+      .form__field-input {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 5px;
+        padding-bottom: 5px;
+        font-size: 16px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        text-align: center;
+      }
+      .form__submit {
+        width: 100%;
+        background: #d4af7a;
+      }</style>
+</head>
+<body>
+    <div class="demo-container">
+        <p>Click on SIGN UP button to trigger animation</p>
+        <div id="demo"></div>
+        <a href="https://www.front-kek.com/demos/form-switch" target="_blank"><button>SIGN UP</button></a>
+      </div>
+      <script>import React, { useState } from 'https://esm.sh/react@18.2.0';
+        import cn from "https://cdn.skypack.dev/classnames@2.3.2";
+        import ReactDOM from 'https://esm.sh/react-dom@18.2.0';
+        function Demo() {
+            const [switched, setSwitched] = useState(false);
+            return (React.createElement("div", { className: "local-container" },
+                React.createElement("div", { className: cn('demo', { 's--switched': switched }) },
+                    React.createElement("div", { className: "demo__inner" },
+                        React.createElement("div", { className: "demo__forms" },
+                            React.createElement("div", { className: "demo__form" },
+                                React.createElement("div", { className: "demo__form-content" },
+                                    React.createElement(FakeForm, { heading: "Welcome back", fields: ['email', 'password'], submitLabel: "Sign in" }))),
+                            React.createElement("div", { className: "demo__form" },
+                                React.createElement("div", { className: "demo__form-content" },
+                                    React.createElement(FakeForm, { heading: "Time to feel like home", fields: ['name', 'email', 'password'], submitLabel: "Sign up" })))),
+                        React.createElement("div", { className: "demo__switcher" },
+                            React.createElement("div", { className: "demo__switcher-inner" },
+                                React.createElement("div", { className: "demo__switcher-content" },
+                                    React.createElement("div", { className: "demo__switcher-text" },
+                                        React.createElement("div", null,
+                                            React.createElement("h3", null, "New here?"),
+                                            React.createElement("p", null, "Sign up and discover great amount of new opportunities!")),
+                                        React.createElement("div", null,
+                                            React.createElement("h3", null, "One of us?"),
+                                            React.createElement("p", null, "If you already has an account, just sign in. We've missed you!"))),
+                                    React.createElement("button", { className: "demo__switcher-btn", onClick: () => setSwitched(!switched) },
+                                        React.createElement("span", { className: "animated-border" }),
+                                        React.createElement("span", { className: "demo__switcher-btn-inner" },
+                                            React.createElement("span", null, "Sign Up"),
+                                            React.createElement("span", null, "Sign In"))))))))));
+        }
+        function FakeForm({ heading, fields, submitLabel }) {
+            return (React.createElement("form", { className: "form", onSubmit: (e) => e.preventDefault() },
+                React.createElement("div", { className: "form__heading" }, heading),
+                fields.map((field) => (React.createElement("label", { className: "form__field", key: field },
+                    React.createElement("span", { className: "form__field-label" }, field),
+                    React.createElement("input", { className: "form__field-input", type: field })))),
+                React.createElement("button", { type: "submit", className: "form__submit" }, submitLabel)));
+        }
+        ReactDOM.render(React.createElement(Demo, null), document.querySelector('#demo'));
+        </script>
+</body>
+</html>
